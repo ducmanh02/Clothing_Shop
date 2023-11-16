@@ -53,6 +53,8 @@ public class ChinhSpServlet extends HttpServlet {
         List<Product> listProduct = pdb.getAll();
         request.setAttribute("listProduct", listProduct);
         
+        BrandDAO
+        
         request.getRequestDispatcher("view/khachhang/GDChinhKH.jsp").forward(request, response);
     } 
 
