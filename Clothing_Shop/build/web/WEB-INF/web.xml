@@ -4,9 +4,17 @@
         <servlet-name>ChinhSpServlet</servlet-name>
         <servlet-class>controller.ChinhSpServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChiTietSpServlet</servlet-name>
+        <servlet-class>controller.ChiTietSpServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ChinhSpServlet</servlet-name>
-        <url-pattern>/ChinhSpServlet</url-pattern>
+        <url-pattern>/chinhsp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChiTietSpServlet</servlet-name>
+        <url-pattern>/chitietsp</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

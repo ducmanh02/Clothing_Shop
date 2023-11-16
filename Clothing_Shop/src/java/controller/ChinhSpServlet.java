@@ -5,6 +5,8 @@
 
 package controller;
 
+import dal.BrandDAO;
+import dal.CategoryDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,7 +15,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import model.Brand;
+import model.Category;
 import model.Product;
+import model.ProductTK;
 
 /**
  *
@@ -53,7 +58,17 @@ public class ChinhSpServlet extends HttpServlet {
         List<Product> listProduct = pdb.getAll();
         request.setAttribute("listProduct", listProduct);
         
-        BrandDAO
+        
+        List<ProductTK> listProductTK = pdb.getProductBanChay();
+        request.setAttribute("listProductTK", listProductTK);
+        
+        BrandDAO bdb = new BrandDAO();
+        List<Brand> listBrand = bdb.getAll();
+        request.setAttribute("listBrand", listBrand);
+        
+        CategoryDAO cdb = new CategoryDAO();
+        List<Category> listCategory = cdb.getAll();
+        request.setAttribute("listCategory", listCategory);
         
         request.getRequestDispatcher("view/khachhang/GDChinhKH.jsp").forward(request, response);
     } 
@@ -62,7 +77,23 @@ public class ChinhSpServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        BrandDAO bdb = new BrandDAO();
+        List<Brand> listBrand = bdb.getAll();
+        request.setAttribute("listBrand", listBrand);
+        
+        CategoryDAO cdb = new CategoryDAO();
+        List<Category> listCategory = cdb.getAll();
+        request.setAttribute("listCategory", listCategory);
+        
+        String action = request.getParameter("action");
+        if(action.equals("search") ){
+            String tuKhoa = request.getParameter("tuKhoa");
+            ProductDAO pdb = new ProductDAO();
+            List<Product> listProduct = pdb.getProductTheoTen(tuKhoa);
+            request.setAttribute("listProduct", listProduct);
+            request.getRequestDispatcher("view/khachhang/GDChinhKH.jsp").forward(request, response);
+        }
+        
     }
 
     /** 

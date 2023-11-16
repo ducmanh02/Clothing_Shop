@@ -14,6 +14,7 @@ public class Product {
     private String product_id, product_name, description;
     private BigDecimal price;
     private int stock_quantity;
+    
     private String brand_id, category_id,image_url, size;
 
     public Product() {
