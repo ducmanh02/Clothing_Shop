@@ -12,7 +12,8 @@ import java.sql.Timestamp;
  * @author ducmanh
  */
 public class Order {
-    private String order_id, user_id;
+    private String order_id;
+    private User user;
     private BigDecimal total_amount;
     private Timestamp order_date;
     private String status;  // Pending - Shipped - Delivered
@@ -20,9 +21,9 @@ public class Order {
     public Order() {
     }
 
-    public Order(String order_id, String user_id, BigDecimal total_amount, Timestamp order_date, String status) {
+    public Order(String order_id, User user, BigDecimal total_amount, Timestamp order_date, String status) {
         this.order_id = order_id;
-        this.user_id = user_id;
+        this.user = user;
         this.total_amount = total_amount;
         this.order_date = order_date;
         this.status = status;
@@ -36,12 +37,12 @@ public class Order {
         this.order_id = order_id;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUser_id(User user) {
+        this.user = user;
     }
 
     public BigDecimal getTotal_amount() {

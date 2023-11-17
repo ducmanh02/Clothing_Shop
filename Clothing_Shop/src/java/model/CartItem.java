@@ -9,16 +9,18 @@ package model;
  * @author ducmanh
  */
 public class CartItem {
-    private String cart_item_id, card_id, product_id;
+    private String cart_item_id; 
+    private Cart cart;
+    private Product product;
     private int quantity;
 
     public CartItem() {
     }
 
-    public CartItem(String cart_item_id, String card_id, String product_id, int quantity) {
+    public CartItem(String cart_item_id, Cart cart, Product product, int quantity) {
         this.cart_item_id = cart_item_id;
-        this.card_id = card_id;
-        this.product_id = product_id;
+        this.cart = cart;
+        this.product = product;
         this.quantity = quantity;
     }
 
@@ -30,20 +32,20 @@ public class CartItem {
         this.cart_item_id = cart_item_id;
     }
 
-    public String getCard_id() {
-        return card_id;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setCard_id(String card_id) {
-        this.card_id = card_id;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
-    public String getProduct_id() {
-        return product_id;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProduct_id(String product_id) {
-        this.product_id = product_id;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getQuantity() {
@@ -53,5 +55,6 @@ public class CartItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
     
 }

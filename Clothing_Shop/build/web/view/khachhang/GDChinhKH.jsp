@@ -15,7 +15,7 @@
     <body>
         <h1>GD Chinh Khách Hàng</h1>
         <h3>Brand</h3>
-        <table>
+        <table border="1px">
             <tr>
                 <th>ID</th>
                 <th>Brand Name</th>
@@ -28,7 +28,7 @@
             </c:forEach>
         </table>
         <h3>Category</h3>
-        <table>
+        <table border="1px">
             <tr>
                 <th>ID</th>
                 <th>Category Name</th>
@@ -41,7 +41,7 @@
             </c:forEach>
         </table>
         <h3>Tim Kiem san pham</h3>
-        <form action="ChinhSpServlet?action=search" method="post">
+        <form action="chinhsp?action=search" method="post">
             <input type="text" name="tuKhoa" placeholder="Nhap tu khoa">
             <input type="submit" value="Search">
         </form>
@@ -69,8 +69,8 @@
                     <td>${c.description}</td>
                     <td>${c.price}</td> 
                     <td>${c.stock_quantity}</td>  
-                    <td>${c.brand_id} </td>  
-                    <td>${c.category_id}</td>  
+                    <td>${c.brand.brand_name} </td>  
+                    <td>${c.category.category_name}</td>  
                     <td>${c.size}</td>
                     <td><img src="${c.image_url}" alt="${c.product_name}"></td>
                     <td><a href="" >Add to cart</a> &nbsp; &nbsp; &nbsp; 
@@ -96,6 +96,7 @@
                 <th>size</th>
                 <th>Image</th>
                 <th>ToTal Sold</th>
+                <th>Action</th>
             </tr>
 
 
@@ -106,11 +107,14 @@
                     <td>${c.description}</td>
                     <td>${c.price}</td> 
                     <td>${c.stock_quantity}</td>  
-                    <td>${c.brand_id} </td>  
-                    <td>${c.category_id}</td>  
+                    <td>${c.brand.brand_name} </td>  
+                    <td>${c.category.category_name}</td>  
                     <td>${c.size}</td>
                     <td><img src="${c.image_url}" alt="${c.product_name}"></td>
                     <td>${c.total_sold}
+                    </td>
+                    <td><a href="" >Add to cart</a> &nbsp; &nbsp; &nbsp; 
+                        <a href="chitietsp?product_id=${c.product_id}" > Chi tiết sản phẩm</a>
                     </td>
                 </tr>
             </c:forEach>

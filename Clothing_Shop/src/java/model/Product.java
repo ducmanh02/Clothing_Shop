@@ -15,32 +15,24 @@ public class Product {
     private BigDecimal price;
     private int stock_quantity;
     
-    private String brand_id, category_id,image_url, size;
+    private Brand brand;
+    private Category category;
+    private String image_url, size;
 
     public Product() {
     }
 
-    public Product(String product_id, String product_name, String description, BigDecimal price, int stock_quantity, String brand_id, String category_id, String image_url, String size) {
+    public Product(String product_id, String product_name, String description, BigDecimal price, int stock_quantity, Brand brand, Category category, String image_url, String size) {
         this.product_id = product_id;
         this.product_name = product_name;
         this.description = description;
         this.price = price;
         this.stock_quantity = stock_quantity;
-        this.brand_id = brand_id;
-        this.category_id = category_id;
+        this.brand = brand;
+        this.category = category;
         this.image_url = image_url;
         this.size = size;
     }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    
 
     public String getProduct_id() {
         return product_id;
@@ -82,20 +74,20 @@ public class Product {
         this.stock_quantity = stock_quantity;
     }
 
-    public String getBrand_id() {
-        return brand_id;
+    public Brand getBrand() {
+        return brand;
     }
 
-    public void setBrand_id(String brand_id) {
-        this.brand_id = brand_id;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
-    public String getCategory_id() {
-        return category_id;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategory_id(String category_id) {
-        this.category_id = category_id;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getImage_url() {
@@ -105,5 +97,16 @@ public class Product {
     public void setImage_url(String image_url) {
         this.image_url = image_url;
     }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+   
+    
     
 }

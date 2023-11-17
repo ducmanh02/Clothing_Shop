@@ -53,11 +53,11 @@ public class CategoryDAO extends DAO {
         return list;
     }
 
-    public Category getCategoryByID(String product_id) {
+    public Category getCategoryByID(String category_id) {
         String sql = "select * from categories where category_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, product_id);
+            st.setString(1, category_id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Category c = new Category(rs.getString(1), rs.getString(2));

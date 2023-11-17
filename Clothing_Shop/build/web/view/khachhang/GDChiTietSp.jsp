@@ -38,8 +38,8 @@
                 <td>${c.description}</td>
                 <td>${c.price}</td> 
                 <td>${c.stock_quantity}</td>  
-                <td>${c.brand_id} </td>  
-                <td>${c.category_id}</td>  
+                <td>${c.brand.brand_name} </td>  
+                <td>${c.category.category_name}</td>  
                 <td>${c.size}</td>
                 <td><img src="${c.image_url}" alt="${c.product_name}"></td>
                 <td>${c.total_sold}
@@ -105,6 +105,7 @@
                 <th>Brand </th>  
                 <th>category</th>  
                 <th>size</th>
+                <th>ToTal Sold</th>
                 <th>Image</th>
                 <th>Action</th>
             </tr>
@@ -117,9 +118,10 @@
                     <td>${c.description}</td>
                     <td>${c.price}</td> 
                     <td>${c.stock_quantity}</td>  
-                    <td>${c.brand_id} </td>  
-                    <td>${c.category_id}</td>  
+                    <td>${c.brand.brand_id} </td>  
+                    <td>${c.category.category_id}</td>  
                     <td>${c.size}</td>
+                    <td>${c.total_sold}</td>
                     <td><img src="${c.image_url}" alt="${c.product_name}"></td>
                     <td><a href="" >Add to cart</a> &nbsp; &nbsp; &nbsp; 
                         <a href="chitietsp?product_id=${c.product_id}" > Chi tiết sản phẩm</a>

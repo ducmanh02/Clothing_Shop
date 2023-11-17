@@ -13,12 +13,11 @@ import java.math.BigDecimal;
 public class ProductTK extends Product {
     private int total_sold;
 
-    public ProductTK(int total_sold) {
-        this.total_sold = total_sold;
+    public ProductTK() {
     }
 
-    public ProductTK( String product_id, String product_name, String description, BigDecimal price, int stock_quantity, String brand_id, String category_id, String image_url, String size,int total_sold) {
-        super(product_id, product_name, description, price, stock_quantity, brand_id, category_id, image_url, size);
+    public ProductTK( String product_id, String product_name, String description, BigDecimal price, int stock_quantity, Brand brand, Category category, String image_url, String size,int total_sold) {
+        super(product_id, product_name, description, price, stock_quantity, brand, category, image_url, size);
         this.total_sold = total_sold;
     }
 
@@ -29,6 +28,8 @@ public class ProductTK extends Product {
     public void setTotal_sold(int total_sold) {
         this.total_sold = total_sold;
     }
+
+    
     
     
 }

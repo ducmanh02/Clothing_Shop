@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Signup
-    Created on : Nov 15, 2023, 4:27:43 PM
+    Document   : GDGioHang
+    Created on : Nov 17, 2023, 10:09:15 AM
     Author     : ducmanh
 --%>
 
@@ -9,9 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Sign Up</title>
+        <title>JSP Page</title>
     </head>
     <body>
-        <h1>Sign Up</h1>
+        <h1>Trang Giỏ Hàng</h1>
+        
+        <h3>Giỏ Hàng</h3>
+        
     </body>
 </html>

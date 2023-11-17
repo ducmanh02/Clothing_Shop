@@ -55,16 +55,16 @@ public class ChiTietSpServlet extends HttpServlet {
             throws ServletException, IOException {
         String product_id = request.getParameter("product_id");
         ProductDAO pdb = new ProductDAO();
-        Product product = pdb.getProductByID(product_id);
+        ProductTK productTK = pdb.getProductTKByID(product_id);
+        request.setAttribute("Product", productTK);
+
         FeedbackDAO fdb = new FeedbackDAO();
-        ProductTK d = pdb.getProductByID(product_id);
-        request.setAttribute("Product", d);
-
-        List<Product> listProduct = pdb.getProductLienQuan(product);
-        request.setAttribute("listProduct", listProduct);
-
         List<Feedback> listFeedback = fdb.getFeedbackOnThisProduct(product_id);
         request.setAttribute("listFeedback", listFeedback);
+
+
+        List<ProductTK> listProduct = pdb.getProductTKLienQuan(pdb.getProductTKByID(product_id));
+        request.setAttribute("listProduct", listProduct);
         request.getRequestDispatcher("view/khachhang/GDChiTietSp.jsp").forward(request, response);
     }
 
@@ -72,13 +72,13 @@ public class ChiTietSpServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        
-        if(action.equals("addFeedback")){
-           String product_id = request.getParameter("product_id");
-           FeedbackDAO fdb = new FeedbackDAO();
-           Feedback f = new Feedback("FDB100",product_id ,"PR01" , Integer.parseInt(request.getParameter("rating")),request.getParameter("comment") , Timestamp.valueOf(request.getParameter("create_at")));
-           fdb.insert(f);
-           response.sendRedirect("chitiepsp?"+product_id);
+
+        if (action.equals("addFeedback")) {
+            String product_id = request.getParameter("product_id");
+            FeedbackDAO fdb = new FeedbackDAO();
+            Feedback f = new Feedback("FDB100", product_id, "PR01", Integer.parseInt(request.getParameter("rating")), request.getParameter("comment"), Timestamp.valueOf(request.getParameter("create_at")));
+            fdb.insert(f);
+            response.sendRedirect("chitiepsp?" + product_id);
         }
 
     }

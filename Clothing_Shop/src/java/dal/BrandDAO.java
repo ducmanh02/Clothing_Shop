@@ -32,8 +32,24 @@ public class BrandDAO extends DAO{
         }
         return list;
     }
+    public Brand getBrandById(String brand_id){
+        String sql = "select * from brands where brand_id = ?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, brand_id);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                Brand b = new Brand(rs.getString(1), rs.getString(2));
+                return b;
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
     public static void main(String[] args) {
         BrandDAO bdb = new BrandDAO();
-        System.out.println(bdb.getAll());
+        System.out.println(bdb.getBrandById("BR01"));
     }
 }

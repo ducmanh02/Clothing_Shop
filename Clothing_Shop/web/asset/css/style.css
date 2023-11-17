@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins";
+  box-sizing: border-box;
+}
+
+.header {
+  height: 15vh;
+  background-color: #fff;
+  -webkit-box-shadow: 8px 8px 24px -11px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 8px 8px 24px -11px rgba(66, 68, 90, 1);
+  box-shadow: 8px 8px 24px -11px rgba(66, 68, 90, 1);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px;
+}
+.header .logo i {
+  font-size: 38px;
+}
+.header .menu {
+  display: flex;
+  gap: 40px;
+}
+.header .menu .item a {
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.header .menu .item a:hover {
+  color: #ca1515;
+}
+
+.header .button {
+  display: flex;
+  gap: 30px;
+  font-size: 18px;
+}
+.header .user .hidden_button {
+  display: none;
+  position: absolute;
+  top: 50px;
+  width: 80px;
+  height: 80px;
+  font-size: 16px;
+  right: 10px;
+  background-color: #fff;
+  -webkit-box-shadow: 8px -10px 24px -11px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 8px -10px 24px -11px rgba(66, 68, 90, 1);
+  box-shadow: 8px -10px 24px -11px rgba(66, 68, 90, 1);
+  padding: 10px;
+}
+.header .user a:hover + .hidden_button {
+  display: block;
+}
+
+.main {
+  height: 1000px;
+  background-color: #f1a9a9;
+}
+
+.footer {
+  height: 15vh;
+  -webkit-box-shadow: 8px -10px 24px -11px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 8px -10px 24px -11px rgba(66, 68, 90, 1);
+  box-shadow: 8px -10px 24px -11px rgba(66, 68, 90, 1);
+}
