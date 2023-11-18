@@ -14,7 +14,10 @@
     </head>
     <body>
         <h1>Trang Chi Tiet San pham</h1>
-
+        <c:if test="${sessionScope.account ne null}">
+            <h3>Hello, ${sessionScope.account.username}</h3>
+            <h4><a href="logout">Logout</a></h4>
+        </c:if>
         <h3>Chi Tiet San Pham</h3>
         <table border="1px">
             <tr>

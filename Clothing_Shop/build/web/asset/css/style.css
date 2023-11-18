@@ -6,7 +6,7 @@
 }
 
 .header {
-  height: 15vh;
+  height: 10vh;
   background-color: #fff;
   -webkit-box-shadow: 8px 8px 24px -11px rgba(66, 68, 90, 1);
   -moz-box-shadow: 8px 8px 24px -11px rgba(66, 68, 90, 1);
@@ -16,6 +16,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 50px;
+  position: fixed;
 }
 .header .logo i {
   font-size: 38px;
@@ -39,28 +40,52 @@
   display: flex;
   gap: 30px;
   font-size: 18px;
+  justify-content:center ;
+  align-items: center;
 }
-.header .user .hidden_button {
-  display: none;
-  position: absolute;
-  top: 50px;
-  width: 80px;
-  height: 80px;
-  font-size: 16px;
-  right: 10px;
-  background-color: #fff;
-  -webkit-box-shadow: 8px -10px 24px -11px rgba(66, 68, 90, 1);
-  -moz-box-shadow: 8px -10px 24px -11px rgba(66, 68, 90, 1);
-  box-shadow: 8px -10px 24px -11px rgba(66, 68, 90, 1);
-  padding: 10px;
+
+.header .button i {
+  text-align: center;
+  font-size: 20px;
 }
-.header .user a:hover + .hidden_button {
-  display: block;
+
+.header .button .user{
+  display: flex;
+  gap: 20px;
 }
+.header .button .user .item{
+  border: 2px solid #ca1515;
+  padding: 5px;
+}
+.header .button .user .item:hover{
+  background-color: #ca1515;
+
+}
+.header .button .user .item a:hover{
+  color: #fff
+}
+.header .button .user .item a{
+  text-decoration: none;
+  color: black;
+}
+.header .button .search  a{
+  text-decoration: none;
+  color: black;
+
+}
+
+
+
 
 .main {
   height: 1000px;
   background-color: #f1a9a9;
+  padding: 0 150px;
+}
+.main .product{
+  
+  height: 800px;
+  background-color: #fff;
 }
 
 .footer {

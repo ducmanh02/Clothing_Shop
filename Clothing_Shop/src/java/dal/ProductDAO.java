@@ -53,7 +53,34 @@ public class ProductDAO extends DAO {
         }
         return list;
     }
-
+    public Product getProductByID(String product_id){
+        String sql = "select * from products where product_id=?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, product_id);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                Product b = new Product();
+                b.setProduct_id(rs.getString(1));
+                b.setProduct_name(rs.getString(2));
+                b.setDescription(rs.getString(3));
+                b.setPrice(rs.getBigDecimal(4));
+                b.setStock_quantity(rs.getInt(5));
+                Brand brand = bdb.getBrandById(rs.getString(6));
+                b.setBrand(brand);
+                Category category = cdb.getCategoryByID(rs.getString(7));
+                b.setCategory(category);
+                b.setImage_url(rs.getString(8));
+                b.setSize(rs.getString(9));
+                return b;
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
+    
     public List<Product> getProductTKTheoTen(String tuKhoa) {
         List<Product> list = new ArrayList<>();
         BrandDAO bdb = new BrandDAO();
@@ -191,18 +218,18 @@ public class ProductDAO extends DAO {
 //        }
 //    }
 //
-//    public void delete(String product_id) {
-//        String sql = "DELETE FROM products\n"
-//                + "WHERE `product_id` = ?";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setString(1, product_id);
-//            st.execute();
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//    }
-//
+    public void delete(String product_id) {
+        String sql = "DELETE FROM products\n"
+                + "WHERE `product_id` = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, product_id);
+            st.execute();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public List<ProductTK> getProductBanChay() {
         List<ProductTK> list = new ArrayList<>();
         String sql = "SELECT\n"
@@ -300,10 +327,106 @@ public class ProductDAO extends DAO {
         return list;
     }
 
+    public List<ProductTK> getProductByBrand(String brand_id) {
+        List<ProductTK> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "           Products.product_id,\n"
+                + "           Products.product_name,\n"
+                + "           Products.description,\n"
+                + "           Products.price,\n"
+                + "           Products.stock_quantity,\n"
+                + "           Brands.brand_id AS brand,\n"
+                + "                 Categories.category_id AS category,\n"
+                + "                 Products.image_url,\n"
+                + "                    Products.size,\n"
+                + "                    SUM(Order_Items.quantity) AS total_sold\n"
+                + "                FROM\n"
+                + "                    Products\n"
+                + "                INNER JOIN Brands ON Products.brand_id = Brands.brand_id\n"
+                + "                INNER JOIN Categories ON Products.category_id = Categories.category_id\n"
+                + "                LEFT JOIN Order_Items ON Products.product_id = Order_Items.product_id\n"
+                + "                 where Brands.brand_id = ? "
+                + "                GROUP BY\n"
+                + "                    Products.product_id\n"
+                + "               ;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, brand_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                ProductTK b = new ProductTK();
+                b.setProduct_id(rs.getString(1));
+                b.setProduct_name(rs.getString(2));
+                b.setDescription(rs.getString(3));
+                b.setPrice(rs.getBigDecimal(4));
+                b.setStock_quantity(rs.getInt(5));
+                Brand brand = bdb.getBrandById(rs.getString(6));
+                b.setBrand(brand);
+                Category category = cdb.getCategoryByID(rs.getString(7));
+                b.setCategory(category);
+                b.setImage_url(rs.getString(8));
+                b.setSize(rs.getString(9));
+                b.setTotal_sold(rs.getInt(10));
+                list.add(b);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    public List<ProductTK> getProductByCategory(String category_id) {
+        List<ProductTK> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "           Products.product_id,\n"
+                + "           Products.product_name,\n"
+                + "           Products.description,\n"
+                + "           Products.price,\n"
+                + "           Products.stock_quantity,\n"
+                + "           Brands.brand_id AS brand,\n"
+                + "                 Categories.category_id AS category,\n"
+                + "                 Products.image_url,\n"
+                + "                    Products.size,\n"
+                + "                    SUM(Order_Items.quantity) AS total_sold\n"
+                + "                FROM\n"
+                + "                    Products\n"
+                + "                INNER JOIN Brands ON Products.brand_id = Brands.brand_id\n"
+                + "                INNER JOIN Categories ON Products.category_id = Categories.category_id\n"
+                + "                LEFT JOIN Order_Items ON Products.product_id = Order_Items.product_id\n"
+                + "                where Categories.category_id = ? "
+                + "                GROUP BY\n"
+                + "                    Products.product_id\n"
+                + "               ;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, category_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                ProductTK b = new ProductTK();
+                b.setProduct_id(rs.getString(1));
+                b.setProduct_name(rs.getString(2));
+                b.setDescription(rs.getString(3));
+                b.setPrice(rs.getBigDecimal(4));
+                b.setStock_quantity(rs.getInt(5));
+                Brand brand = bdb.getBrandById(rs.getString(6));
+                b.setBrand(brand);
+                Category category = cdb.getCategoryByID(rs.getString(7));
+                b.setCategory(category);
+                b.setImage_url(rs.getString(8));
+                b.setSize(rs.getString(9));
+                b.setTotal_sold(rs.getInt(10));
+                list.add(b);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         ProductDAO pdb = new ProductDAO();
         ProductTK p = pdb.getProductTKByID("PR03");
-        
-        System.out.println(pdb.getProductTKLienQuan(p));
+
+//        System.out.println(pdb.getProductByCategory("CA01"));
     }
 }

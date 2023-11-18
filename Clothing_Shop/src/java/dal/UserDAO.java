@@ -41,6 +41,32 @@ public class UserDAO extends DAO {
         return null;
     }
 
+ public User getUserById(String user_id) {
+        String sql = "Select * from users where user_id=? ;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, user_id);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                User u = new User();
+                u.setUser_id(rs.getString(1));
+                u.setUsername(rs.getString(2));
+                u.setPassword(rs.getString(3));
+                u.setEmail(rs.getString(4));
+                u.setFull_name(rs.getString(5));
+                u.setAddress(rs.getString(6));
+                u.setPhone(rs.getString(7));
+                u.setIs_admin(rs.getInt(8));
+                return u;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
+    }
+    
     public User checkUser(String username) {
         String sql = "Select * from users where username=? ;";
         try {
@@ -97,6 +123,6 @@ public class UserDAO extends DAO {
     public static void main(String[] args) {
         UserDAO usb = new UserDAO();
 //        usb.createUser("manh", "1");
-        System.out.println(usb.checkUser("manh"));
+//        System.out.println(usb.checkUser("manh"));
     }
 }

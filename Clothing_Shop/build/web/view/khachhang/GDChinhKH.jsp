@@ -14,6 +14,15 @@
     </head>
     <body>
         <h1>GD Chinh Khách Hàng</h1>
+        <c:if test="${sessionScope.account ne null}">
+            <h3>Hello, ${sessionScope.account.username}</h3>
+            <h4><a href="logout">Logout</a></h4>
+        </c:if>
+        <c:if test="${sessionScope.account eq null}">
+
+            <h4><a href="login">Login</a></h4>
+            <h4><a href="signup">Sign Up</a></h4>
+        </c:if>
         <h3>Brand</h3>
         <table border="1px">
             <tr>
@@ -23,7 +32,7 @@
             <c:forEach var="b" items="${requestScope.listBrand}" >
                 <tr>
                     <td>${b.brand_id}</td>
-                    <td>${b.brand_name}</td>
+                    <td><a href="chinhsp?action=filter&&brand_id=${b.brand_id}">${b.brand_name}</a></td>
                 </tr>
             </c:forEach>
         </table>
@@ -36,7 +45,7 @@
             <c:forEach var="b" items="${requestScope.listCategory}" >
                 <tr>
                     <td>${b.category_id}</td>
-                    <td>${b.category_name}</td>
+                    <td><a href="chinhsp?action=filter&&category_id=${b.category_id}">${b.category_name}</a></td>
                 </tr>
             </c:forEach>
         </table>
@@ -45,7 +54,7 @@
             <input type="text" name="tuKhoa" placeholder="Nhap tu khoa">
             <input type="submit" value="Search">
         </form>
-        
+
         <h3>Products</h3>
         <table border="1px">
             <tr>
@@ -73,15 +82,15 @@
                     <td>${c.category.category_name}</td>  
                     <td>${c.size}</td>
                     <td><img src="${c.image_url}" alt="${c.product_name}"></td>
-                    <td><a href="" >Add to cart</a> &nbsp; &nbsp; &nbsp; 
+                    <td><a href="giohang?product_id=${c.product_id}" >Add to cart</a> &nbsp; &nbsp; &nbsp; 
                         <a href="chitietsp?product_id=${c.product_id}" > Chi tiết sản phẩm</a>
                     </td>
                 </tr>
             </c:forEach>
-            
+
         </table>
-        
-        
+
+
         <hr><!-- comment -->
         <h3>Products Sort By bán chạy</h3>
         <table border="1px" >
@@ -118,7 +127,7 @@
                     </td>
                 </tr>
             </c:forEach>
-            
+
         </table>
     </body>
 </html>

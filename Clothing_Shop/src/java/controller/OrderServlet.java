@@ -5,24 +5,18 @@
 
 package controller;
 
-import dal.CartDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import model.Cart;
-import model.CartItem;
-import model.User;
 
 /**
  *
  * @author ducmanh
  */
-public class GioHangServlet extends HttpServlet {
+public class OrderServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,10 +33,10 @@ public class GioHangServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet GioHangServlet</title>");  
+            out.println("<title>Servlet OrderServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet GioHangServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet OrderServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -52,23 +46,7 @@ public class GioHangServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        
-        if(session.getAttribute("account") == null){
-            request.setAttribute("error", "Ban Can dang nhap");
-            request.getRequestDispatcher("/view/khachhang/GDGioHang.jsp").forward(request, response);
-        }
-        else{
-            User u = (User) session.getAttribute("account");
-            String user_id = u.getUser_id();
-            CartDAO cartdb = new CartDAO();
-            Cart cart = cartdb.getCartByUserId(user_id);
-            System.out.println(user_id);
-            List<CartItem> listCartItem= cartdb.getAllItemInCart(cart.getCart_id());
-            request.setAttribute("listCartItem", listCartItem);
-            request.getRequestDispatcher("/view/khachhang/GDGioHang.jsp").forward(request, response);
-        }
-
+        processRequest(request, response);
     } 
 
     
