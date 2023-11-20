@@ -33,8 +33,8 @@
         <servlet-class>controller.HomeServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>OrderServlet</servlet-name>
-        <servlet-class>controller.OrderServlet</servlet-class>
+        <servlet-name>DatHangServlet</servlet-name>
+        <servlet-class>controller.DatHangServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ChinhSpServlet</servlet-name>
@@ -69,8 +69,8 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>OrderServlet</servlet-name>
-        <url-pattern>/order</url-pattern>
+        <servlet-name>DatHangServlet</servlet-name>
+        <url-pattern>/dathang</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

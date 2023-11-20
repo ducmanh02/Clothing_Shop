@@ -4,6 +4,7 @@
  */
 package dal;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -98,7 +99,7 @@ public class CartDAO extends DAO {
     // lay danh sach cac san pham trong gio hang
     public List<CartItem> getAllItemInCart(String cart_id) {
         List<CartItem> list = new ArrayList<>();
-        String sql = "select * from cart_items where cart_id = ? ";
+        String sql = "select ci.cart_item_id, ci.cart_id,ci.product_id,ci.quantity,(p.price * ci.quantity) AS total_price  from cart_items ci  JOIN products p ON ci.product_id = p.product_id  where cart_id = ? ";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -114,6 +115,7 @@ public class CartDAO extends DAO {
                 Product p = pdb.getProductByID(rs.getString(3));
                 c.setProduct(p);
                 c.setQuantity(rs.getInt(4));
+                c.setTotal_price(BigDecimal.valueOf(Double.parseDouble(rs.getString(5))));
                 list.add(c);
 
             }
@@ -194,6 +196,41 @@ public class CartDAO extends DAO {
             st.execute();
         } catch (SQLException e) {
             System.out.println(e);
+        }
+
+    }
+
+    public void deleteProductInCart(String user_id, String product_id) {
+        CartDAO cdb = new CartDAO();
+        Cart c = cdb.getCartByUserId(user_id);
+        String sql = "DELETE FROM `clothing_shop`.`cart_items`\n"
+                + "WHERE cart_id= ? and product_id = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, c.getCart_id());
+            st.setString(2, product_id);
+            st.execute();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void removeItemsFromCart(Cart cart, List<CartItem> listCartItem) {
+        String sql = "DELETE FROM `clothing_shop`.`cart_items`\n"
+                + "WHERE cart_item_id = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = null;
+
+            for (CartItem item : listCartItem) {
+                // Xóa từng sản phẩm trong order_item
+                st.setString(1, item.getCart_item_id());
+                st.execute();
+            }
+            
+            
+        } catch (SQLException e) {
+            System.out.println("Line 228" + e);
         }
 
     }

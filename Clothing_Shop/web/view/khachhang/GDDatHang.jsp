@@ -1,6 +1,6 @@
 <%-- 
-    Document   : GDGioHang
-    Created on : Nov 17, 2023, 10:09:15 AM
+    Document   : GDDatHang
+    Created on : Nov 20, 2023, 11:23:11 PM
     Author     : ducmanh
 --%>
 
@@ -26,44 +26,44 @@
     </style>
     <body>
         <jsp:include page="../components/Header.jsp" ></jsp:include>
-
             <div class="container">
-                <h1>Trang Giỏ Hàng</h1>
+                <h1>Trang Đặt Hàng</h1>
+            <c:set var="u" value="${sessionScope.account}" />
+                <form action="dathang" method="post">
+                    <h3>Thông tin người đặt</h3>
+                    <label>Full Name:</label>
+                    <input type="text" name="full_name" required> 
+                    <label>Address:</label>
+                    <input type="text" name="address" required> 
+                    <label>Phone Number:</label> 
+                    <input type="text" name="phone" required> 
+                    <input type="submit" value="Xác Nhận Đặt Hàng">
+                </form>
 
-                <h4>${requestScope.error}</h3>
-                <h3>Giỏ Hàng</h3>
-
+                <h3>Thông tin Đơn Hàng Đặt</h3>
+                <h4>Danh sách Sản Phẩm</h4>
                 <table border="1px">
                     <tr>
                         <th>Cart Item id</th>
                         <th>Product</th>
                         <th>Quantity</th>
                         <th>Total Price</th>
-                        <th>action</th>
+                        
                     </tr>
                     <c:forEach var="b" items="${requestScope.listCartItem}"  >
                         <tr>
                             <td>${b.cart_item_id}</td>
                             <td>${b.product.product_id}</td>
-                            <td>   
-                                <form action="giohang?action=update&&product_id=${b.product.product_id}" method="post">
-                                    <input type="number" width="20px" value="${b.quantity}" name="quantity"/>
-                                    <input type="submit" value="update"/>
-
-                                </form></td>
-                                <td>${b.total_price}</td>
-                            <td>
-                                
-                                <form action="giohang?action=delete&&product_id=${b.product.product_id}" method="post">
-                                    <input type="submit" value="delete"/>
-
-                                </form></td>
+                            <td>${b.quantity}</td>
+                            <td>${b.total_price}</td>
+                            
                         </tr>
                     </c:forEach>
-                        
+
                 </table>
                 <h4 style="margin: 20px 0">Tổng tiền : ${requestScope.totalPrice}</h4>
-                <a href="dathang">Đặt Hàng</a>
-        </div>
-    </body>
-</html>
+            </div>
+            <a href="view/khachhang/GDDatHangThanhCong.jsp">OKOKO</a>
+
+        </body>
+    </html>

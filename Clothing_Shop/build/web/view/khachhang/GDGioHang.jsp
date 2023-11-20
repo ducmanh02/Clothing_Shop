@@ -38,22 +38,32 @@
                         <th>Cart Item id</th>
                         <th>Product</th>
                         <th>Quantity</th>
+                        <th>Total Price</th>
                         <th>action</th>
                     </tr>
-                    <c:forEach var="b" items="${requestScope.listCartItem}" >
+                    <c:forEach var="b" items="${requestScope.listCartItem}"  >
                         <tr>
                             <td>${b.cart_item_id}</td>
                             <td>${b.product.product_id}</td>
-                            <td>   <form action="giohang?action=update&&product_id=${b.product.product_id}" method="post">
+                            <td>   
+                                <form action="giohang?action=update&&product_id=${b.product.product_id}" method="post">
                                     <input type="number" width="20px" value="${b.quantity}" name="quantity"/>
                                     <input type="submit" value="update"/>
 
                                 </form></td>
+                                <td>${b.total_price}</td>
+                            <td>
+                                
+                                <form action="giohang?action=delete&&product_id=${b.product.product_id}" method="post">
+                                    <input type="submit" value="delete"/>
+
+                                </form></td>
                         </tr>
                     </c:forEach>
-
+                        
                 </table>
-                <a href="url">Đặt Hàng</a>
+                <h4 style="margin: 20px 0">Tổng tiền : ${requestScope.totalPrice}</h4>
+                <a href="dathang">Đặt Hàng</a>
         </div>
     </body>
 </html>
