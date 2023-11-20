@@ -123,6 +123,81 @@ public class CartDAO extends DAO {
         return list;
     }
 
+    public void addProductToCart(String user_id, String product_id, int quantity) {
+        CartDAO cdb = new CartDAO();
+        if (cdb.getCartByUserId(user_id) == null) {
+            // tao cart moi 
+        } else { // neu da co cart
+            Cart c = cdb.getCartByUserId(user_id);
+            //kiem tra san pham da co trong gio hang chua
+            String checkCartItemQuery = "SELECT cart_item_id, quantity FROM cart_items WHERE cart_id = ? AND product_id = ?;";
+            try {
+                PreparedStatement st = connection.prepareStatement(checkCartItemQuery);
+                st.setString(1, c.getCart_id());
+                st.setString(2, product_id);
+                ResultSet rs = st.executeQuery();
+                if (rs.next()) { // neu da co
+                    String cartItemId = rs.getString("cart_item_id");
+                    int existingQuantity = rs.getInt("quantity");
+                    int newQuantity = existingQuantity + quantity; // them so luong
+
+                    String updateCartItemQuery = "UPDATE cart_items SET quantity = ? WHERE cart_item_id = ?;";
+                    st = connection.prepareStatement(updateCartItemQuery);
+                    st.setInt(1, newQuantity);
+                    st.setString(2, cartItemId);
+                    st.executeUpdate();
+                } else {
+                    // Sản phẩm chưa tồn tại trong giỏ hàng, thêm mới
+
+                    // tao cart_item_id
+                    // Lấy giá trị `cart_item_id` lớn nhất
+                    String getMaxIdQuery = "SELECT MAX(CAST(SUBSTRING(cart_item_id, 10) AS UNSIGNED)) AS max_id FROM cart_items;";
+                    st = connection.prepareStatement(getMaxIdQuery);
+                    rs = st.executeQuery();
+
+                    int maxId = 0;
+
+                    if (rs.next()) {
+                        maxId = rs.getInt("max_id");
+                    }
+
+                    // Tạo mã `product_id` mới
+                    String newCart_item_id = "CRT_ITEM" + String.format("%02d", maxId + 1);
+                    String addCartItemQuery = "INSERT INTO cart_items (cart_item_id,cart_id, product_id, quantity) VALUES (?, ?, ?, ?);";
+                    st = connection.prepareStatement(addCartItemQuery);
+                    st.setString(1, newCart_item_id);
+                    st.setString(2, c.getCart_id());
+                    st.setString(3, product_id);
+                    st.setInt(4, quantity);
+                    st.executeUpdate();
+                }
+            } catch (SQLException e) {
+                System.out.println("Line : 139 " + e);
+            }
+
+        }
+
+    }
+
+    public void updateProductInCart(String user_id, String product_id, int quantity) {
+        CartDAO cdb = new CartDAO();
+        Cart c = cdb.getCartByUserId(user_id);
+        String sql = "UPDATE `clothing_shop`.`cart_items`\n"
+                + "SET `quantity` = ?\n"
+                + "WHERE `cart_id` = ? and\n"
+                + "`product_id` = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, quantity);
+            st.setString(2, c.getCart_id());
+            st.setString(3, product_id);
+            st.execute();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+    }
+
     public static void main(String[] args) {
         CartDAO cartDB = new CartDAO();
         System.out.println(cartDB.getCartByUserId("USR02"));

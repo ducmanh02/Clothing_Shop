@@ -9,21 +9,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="<c:url value="/asset/css/style.css"/>">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+              integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+              crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="icon" type="image/x-icon" href="./asset/favicon/icons8-shop-color-96.png">
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <title>Shop Clothing</title>
     </head>
-    <body>
-        <h1>Trang Home</h1>
-        <c:if test="${sessionScope.account ne null}">
-            <h3>Hello, ${sessionScope.account.username}</h3>
-            <h4><a href="logout">Logout</a></h4>
-        </c:if>
-        <c:if test="${sessionScope.account eq null}">
-            
-            <h4><a href="login">Login</a></h4>
-            <h4><a href="signup">Sign Up</a></h4>
-        </c:if>
-        <a href="chinhsp">Xem San Pham</a>
 
-    </body>
-</html>
+    <body>
+
+        <jsp:include page="../components/Header.jsp" ></jsp:include>
+            
+        </body>
+    </html>

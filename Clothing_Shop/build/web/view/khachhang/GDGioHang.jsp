@@ -10,43 +10,50 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="./asset/css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+              integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+              crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="icon" type="image/x-icon" href="./asset/favicon/icons8-shop-color-96.png">
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
         <title>JSP Page</title>
     </head>
+    <style>
+        .container {
+            padding-top: 15vh;
+
+        }
+    </style>
     <body>
-        <h1>Trang Giỏ Hàng</h1>
-        <c:if test="${sessionScope.account ne null}">
-            <h3>Hello, ${sessionScope.account.username}</h3>
-            <h4><a href="logout">Logout</a></h4>
-        </c:if>
-        <c:if test="${sessionScope.account eq null}">
+        <jsp:include page="../components/Header.jsp" ></jsp:include>
 
-            <h4><a href="login">Login</a></h4>
-            <h4><a href="signup">Sign Up</a></h4>
-        </c:if>
-        <h4>${requestScope.error}</h3>
-        <h3>Giỏ Hàng</h3>
+            <div class="container">
+                <h1>Trang Giỏ Hàng</h1>
 
-        <table border="1px">
-            <tr>
-                <th>Cart Item id</th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>action</th>
-            </tr>
-            <c:forEach var="b" items="${requestScope.listCartItem}" >
-                <tr>
-                    <td>${b.cart_item_id}</td>
-                    <td>${b.product.product_name}
-                        <form action="action" method="post">
-                            <td><input type="number" value="${b.quantity}" /></td>
-                            <td><input type="submit" value="update"/>
+                <h4>${requestScope.error}</h3>
+                <h3>Giỏ Hàng</h3>
 
-                            </td>
-                        </form></td>
-                </tr>
-            </c:forEach>
+                <table border="1px">
+                    <tr>
+                        <th>Cart Item id</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>action</th>
+                    </tr>
+                    <c:forEach var="b" items="${requestScope.listCartItem}" >
+                        <tr>
+                            <td>${b.cart_item_id}</td>
+                            <td>${b.product.product_id}</td>
+                            <td>   <form action="giohang?action=update&&product_id=${b.product.product_id}" method="post">
+                                    <input type="number" width="20px" value="${b.quantity}" name="quantity"/>
+                                    <input type="submit" value="update"/>
 
-        </table>
-        <a href="url">Đặt Hàng</a>
-</body>
+                                </form></td>
+                        </tr>
+                    </c:forEach>
+
+                </table>
+                <a href="url">Đặt Hàng</a>
+        </div>
+    </body>
 </html>

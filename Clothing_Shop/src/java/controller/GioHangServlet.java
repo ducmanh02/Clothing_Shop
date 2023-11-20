@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller;
 
 import dal.CartDAO;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -23,63 +23,101 @@ import model.User;
  * @author ducmanh
  */
 public class GioHangServlet extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet GioHangServlet</title>");  
+            out.println("<title>Servlet GioHangServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet GioHangServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet GioHangServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
-
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
-        if(session.getAttribute("account") == null){
+
+        if (session.getAttribute("account") == null) {
             request.setAttribute("error", "Ban Can dang nhap");
             request.getRequestDispatcher("/view/khachhang/GDGioHang.jsp").forward(request, response);
-        }
-        else{
+        } else {
             User u = (User) session.getAttribute("account");
             String user_id = u.getUser_id();
             CartDAO cartdb = new CartDAO();
             Cart cart = cartdb.getCartByUserId(user_id);
-            System.out.println(user_id);
-            List<CartItem> listCartItem= cartdb.getAllItemInCart(cart.getCart_id());
+            List<CartItem> listCartItem = cartdb.getAllItemInCart(cart.getCart_id());
             request.setAttribute("listCartItem", listCartItem);
             request.getRequestDispatcher("/view/khachhang/GDGioHang.jsp").forward(request, response);
         }
 
-    } 
-
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
     }
 
-    /** 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        HttpSession session = request.getSession();
+        UserDAO udb = new UserDAO();
+        CartDAO cdb = new CartDAO();
+        User u = new User();
+
+        try {
+            u = (User) session.getAttribute("account"); // get username dang dang nhap
+            User user = udb.checkUser(u.getUsername()); // get user_id
+            if (action.equals("add")) {
+                String product_id = request.getParameter("product_id");
+                String quantity_raw = request.getParameter("quantity");
+                
+                try {
+                    int quantity = Integer.parseInt(quantity_raw);
+                    System.out.println(quantity + "hehe");
+                    cdb.addProductToCart(u.getUser_id(), product_id, quantity);
+                    response.sendRedirect("giohang");
+                } catch (NumberFormatException e) {
+                    System.out.println("line 94 GHServlet");
+                }
+
+            }
+            if(action.equals("update")){
+                String product_id = request.getParameter("product_id");
+                String quantity_raw = request.getParameter("quantity");
+                try {
+                    int quantity = Integer.parseInt(quantity_raw);
+                    System.out.println(quantity + "hehe " +u.getUser_id()+ " " + product_id);
+                    cdb.updateProductInCart(u.getUser_id(), product_id, quantity);
+                    response.sendRedirect("giohang");
+                } catch (NumberFormatException e) {
+                    System.out.println("line 109 GHServlet");
+                }
+            }
+        }
+        catch(NullPointerException e){
+            response.sendRedirect("login");
+        }
+    }
+
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
