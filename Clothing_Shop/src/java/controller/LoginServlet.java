@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet {
         System.out.println(u);
         if (u != null) {
             //co tim thay tai khoan, tao session
-
+            
             session.setAttribute("account", u);
             if (u.getIs_admin() == 1) {
                 request.getRequestDispatcher("view/admin/GDChinhAdmin.jsp").forward(request, response);

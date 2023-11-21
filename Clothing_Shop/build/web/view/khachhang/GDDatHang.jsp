@@ -32,11 +32,11 @@
                 <form action="dathang" method="post">
                     <h3>Thông tin người đặt</h3>
                     <label>Full Name:</label>
-                    <input type="text" name="full_name" required> 
+                    <input type="text" name="full_name" value="${u.getFull_name()}" required> 
                     <label>Address:</label>
-                    <input type="text" name="address" required> 
+                    <input type="text" name="address" value="${u.getAddress()}" required> 
                     <label>Phone Number:</label> 
-                    <input type="text" name="phone" required> 
+                    <input type="text" name="phone" value="${u.getPhone()}" required> 
                     <input type="submit" value="Xác Nhận Đặt Hàng">
                 </form>
 
@@ -63,7 +63,7 @@
                 </table>
                 <h4 style="margin: 20px 0">Tổng tiền : ${requestScope.totalPrice}</h4>
             </div>
-            <a href="view/khachhang/GDDatHangThanhCong.jsp">OKOKO</a>
+
 
         </body>
     </html>

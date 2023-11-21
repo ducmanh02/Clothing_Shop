@@ -97,11 +97,20 @@ public class UserDAO extends DAO {
         String sql = "INSERT INTO `clothing_shop`.`users`\n"
                 + "(`user_id`,`username`,`password`,`is_admin`)\n"
                 + "VALUES\n"
-                + "(SUBSTRING(UUID(), 1, 8), ?, ?, 0);";
+                + "(?, ?, ?, 0);";
         try{
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1,username);
-            st.setString(2, password);
+            String sqlGetMaxID = "SELECT MAX(CAST(SUBSTRING(user_id, 4) AS UNSIGNED)) AS max_id FROM users;";
+            PreparedStatement st2 = connection.prepareStatement(sqlGetMaxID);
+            ResultSet rs = st2.executeQuery();
+            int maxId = 0;
+            if(rs.next()){
+                maxId = rs.getInt(1);
+            }
+            String newUser_id = "USR" + String.format("%02d", maxId + 1);
+            st.setString(1,newUser_id);
+            st.setString(2,username);
+            st.setString(3, password);
             st.execute();
         }
         catch(SQLException e){
