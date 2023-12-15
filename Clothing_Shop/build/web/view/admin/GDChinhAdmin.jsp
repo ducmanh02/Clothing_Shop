@@ -33,6 +33,7 @@
 
             <br>
             <hr><!-- comment -->
+            <h3><a href="">Quan Ly User</a></h3>
             <h3><a href="">Quan Ly Category</a></h3>
             <h3><a href="">Quan ly Brand</a></h3>
             <h3><a href="qlsp" >Quan ly san pham</a></h3>
