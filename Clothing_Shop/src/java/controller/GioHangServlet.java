@@ -5,6 +5,7 @@
 package controller;
 
 import dal.CartDAO;
+import dal.ProductDAO;
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,6 +19,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import model.Cart;
 import model.CartItem;
+import model.Product;
 import model.User;
 
 /**
@@ -59,7 +61,8 @@ public class GioHangServlet extends HttpServlet {
 
         if (session.getAttribute("account") == null) {
             request.setAttribute("error", "Ban Can dang nhap");
-            request.getRequestDispatcher("/view/khachhang/GDGioHang.jsp").forward(request, response);
+
+            request.getRequestDispatcher("/view/nguoidung/GDLogin.jsp").forward(request, response);
         } else {
             User u = (User) session.getAttribute("account");
             String user_id = u.getUser_id();
@@ -91,6 +94,7 @@ public class GioHangServlet extends HttpServlet {
         HttpSession session = request.getSession();
         UserDAO udb = new UserDAO();
         CartDAO cdb = new CartDAO();
+
         User u = new User();
 
         try {
@@ -99,10 +103,12 @@ public class GioHangServlet extends HttpServlet {
             if (action.equals("add")) {
                 String product_id = request.getParameter("product_id");
                 String quantity_raw = request.getParameter("quantity");
-
+                
                 try {
                     int quantity = Integer.parseInt(quantity_raw);
 
+                    
+                    
                     cdb.addProductToCart(u.getUser_id(), product_id, quantity);
                     response.sendRedirect("giohang");
                 } catch (NumberFormatException e) {

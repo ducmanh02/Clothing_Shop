@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.util.List;
 import model.Product;
 
@@ -57,15 +58,18 @@ public class QuanLySpServlet extends HttpServlet {
             if (action.equalsIgnoreCase("delete") && action != null) {
                 String product_id = request.getParameter("product_id");
                 pdb.delete(product_id);
+                response.sendRedirect("qlsp");
             }
             if (action.equalsIgnoreCase("update") && action != null) {
                 String product_id = request.getParameter("product_id");
-                pdb.delete(product_id);
+                Product p = pdb.getProductByID(product_id);
+                request.setAttribute("product", p);
+                request.getRequestDispatcher("/view/admin/GDSuaSp.jsp").forward(request, response);
             }
             if (action.equalsIgnoreCase("add") && action != null) {
                 request.getRequestDispatcher("/view/admin/GDThemSp.jsp").forward(request, response);
             }
-            
+
         } catch (NullPointerException e) {
 
             List<Product> listProduct = pdb.getAll();
@@ -85,14 +89,25 @@ public class QuanLySpServlet extends HttpServlet {
             if (action.equalsIgnoreCase("add") && action != null) {
                 String product_name = request.getParameter("product_name");
                 String description = request.getParameter("description");
-                String price = request.getParameter("price");
-                String stock_quantity = request.getParameter("stock_quantity");
+                String price_raw = request.getParameter("price");
+                String stock_quantity_raw = request.getParameter("stock_quantity");
                 String brand_id = request.getParameter("brand_id");
                 String category_id = request.getParameter("category_id");
                 String image_url = request.getParameter("image_url");
-                System.out.println(product_name + " " + description + " " + image_url);
+                String size = request.getParameter("size");
+                try {
+                    BigDecimal price = new BigDecimal(price_raw);
+                    int stock_quantity = Integer.parseInt(stock_quantity_raw);
+                    pdb.insert(product_name, description, price, stock_quantity, brand_id, category_id, image_url, size);
+                    response.sendRedirect("qlsp");
+                    System.out.println("22 " + product_name + " " + description + " " + image_url);
+
+                } catch (NumberFormatException e) {
+                    System.out.println(e);
+                }
+
             }
-            
+
         } catch (NullPointerException e) {
 
             List<Product> listProduct = pdb.getAll();

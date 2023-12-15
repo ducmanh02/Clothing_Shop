@@ -4,6 +4,7 @@
  */
 package dal;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -53,13 +54,14 @@ public class ProductDAO extends DAO {
         }
         return list;
     }
-    public Product getProductByID(String product_id){
+
+    public Product getProductByID(String product_id) {
         String sql = "select * from products where product_id=?";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, product_id);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Product b = new Product();
                 b.setProduct_id(rs.getString(1));
                 b.setProduct_name(rs.getString(2));
@@ -74,13 +76,12 @@ public class ProductDAO extends DAO {
                 b.setSize(rs.getString(9));
                 return b;
             }
-        }
-        catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
     }
-    
+
     public List<Product> getProductTKTheoTen(String tuKhoa) {
         List<Product> list = new ArrayList<>();
         BrandDAO bdb = new BrandDAO();
@@ -177,28 +178,41 @@ public class ProductDAO extends DAO {
         return null;
     }
 
-//    public void insert(Product p) {
-//        String sql = "INSERT INTO `clothing_shop`.`products`\n"
-//                + "(`product_id`,`product_name`,`description`,`price`,`stock_quantity`,`brand_id`,`category_id`,`image_url`,`size`)\n"
-//                + "VALUES (?,?,?,?,?,?,?,?,?);";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setString(1, p.getProduct_id());
-//            st.setString(2, p.getProduct_name());
-//            st.setString(3, p.getDescription());
-//            st.setBigDecimal(4, p.getPrice());
-//            st.setInt(5, p.getStock_quantity());
-//            st.setString(6, p.getBrand_id());
-//            st.setString(7, p.getCategory_id());
-//            st.setString(8, p.getImage_url());
-//            st.setString(9, p.getSize());
-//
-//            st.execute();
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//    }
-//
+    public void insert(String product_name, String description, BigDecimal price, int stock_quantity, String brand_id, String category_id, String image_url, String size) {
+        String getMaxIdQuery = "SELECT MAX(CAST(SUBSTRING(product_id, 3) AS UNSIGNED)) AS max_id FROM products;";
+
+       
+        try {
+            PreparedStatement st = connection.prepareStatement(getMaxIdQuery);
+            ResultSet rs = st.executeQuery();
+           
+
+            int maxId = 0;
+
+            if (rs.next()) {
+                maxId = rs.getInt("max_id");
+            }
+            // Tạo mã `product_id` mới
+            String newProduct_item_id = "PR" + String.format("%02d", maxId + 1);
+            String addProductQuery = "INSERT INTO `clothing_shop`.`products`\n"
+                    + "(`product_id`,`product_name`,`description`,`price`,`stock_quantity`,`brand_id`,`category_id`,`image_url`,`size`)\n"
+                    + "VALUES (?,?,?,?,?,?,?,?,?);";
+            st = connection.prepareStatement(addProductQuery);
+            st.setString(1, newProduct_item_id);
+            st.setString(2, product_name);
+            st.setString(3,description);
+            st.setBigDecimal(4,price);
+            st.setInt(5,stock_quantity);
+            st.setString(6, brand_id);
+            st.setString(7, category_id);
+            st.setString(8, image_url);
+            st.setString(9, size);
+            st.execute();
+        } catch (SQLException e) {
+            System.out.println("loi them san pham "+e);
+        }
+    }
+
 //    public void update(Product p, String product_id) {
 //        String sql = "UPDATE products SET `product_name` = ?, `description` = ?, `price` = ?, `stock_quantity` = ?, `brand_id` = ?, `category_id` = ? ,`image_url` = ?,`size` = ? WHERE `product_id` = ?;";
 //        try {
@@ -374,7 +388,7 @@ public class ProductDAO extends DAO {
         }
         return list;
     }
-    
+
     public List<ProductTK> getProductByCategory(String category_id) {
         List<ProductTK> list = new ArrayList<>();
         String sql = "SELECT\n"
