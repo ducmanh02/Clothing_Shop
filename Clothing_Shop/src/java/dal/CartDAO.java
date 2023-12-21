@@ -164,9 +164,10 @@ public class CartDAO extends DAO {
                     }
 
                     // Tạo mã `product_id` mới
-                    String newCart_item_id = "CRT_ITEM" + String.format("%02d", maxId + 1);
+                    String newCart_item_id = "CRT_ITEM" + String.format("%03d", maxId + 1);
                     String addCartItemQuery = "INSERT INTO cart_items (cart_item_id,cart_id, product_id, quantity) VALUES (?, ?, ?, ?);";
                     st = connection.prepareStatement(addCartItemQuery);
+                    System.out.println("aa "+newCart_item_id);
                     st.setString(1, newCart_item_id);
                     st.setString(2, c.getCart_id());
                     st.setString(3, product_id);
