@@ -99,17 +99,16 @@ public class GioHangServlet extends HttpServlet {
 
         try {
             u = (User) session.getAttribute("account"); // get username dang dang nhap
-            User user = udb.checkUser(u.getUsername()); // get user_id
+            User user = udb.checkUser(u.getUsername()); // get user
+            System.out.println("user: "+user.getUser_id());
             if (action.equals("add")) {
                 String product_id = request.getParameter("product_id");
                 String quantity_raw = request.getParameter("quantity");
                 
                 try {
                     int quantity = Integer.parseInt(quantity_raw);
-
-                    
-                    
-                    cdb.addProductToCart(u.getUser_id(), product_id, quantity);
+ 
+                    cdb.addProductToCart(user.getUser_id(), product_id, quantity);
                     response.sendRedirect("giohang");
                 } catch (NumberFormatException e) {
                     System.out.println("line 109 GHServlet");

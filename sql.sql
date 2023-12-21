@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `clothing_shop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `clothing_shop`;
 -- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: clothing_shop
@@ -94,7 +96,7 @@ CREATE TABLE `cart_items` (
 
 LOCK TABLES `cart_items` WRITE;
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
-INSERT INTO `cart_items` VALUES ('CRT_ITEM01','CRT01','PR01',2),('CRT_ITEM02','CRT01','PR02',1),('CRT_ITEM06','CRT03','PR01',6);
+INSERT INTO `cart_items` VALUES ('CRT_ITEM06','CRT03','PR01',6),('CRT_ITEM07','CRT02','PR01',1598),('CRT_ITEM08','CRT02','PR04',4),('CRT_ITEM09','CRT02','PR02',238),('CRT_ITEM10','CRT02','PR03',25);
 /*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,7 +184,7 @@ CREATE TABLE `order_items` (
 
 LOCK TABLES `order_items` WRITE;
 /*!40000 ALTER TABLE `order_items` DISABLE KEYS */;
-INSERT INTO `order_items` VALUES ('ORD_ITEM01','ORD01','PR01',1,19.99),('ORD_ITEM02','ORD01','PR02',1,29.99),('ORD_ITEM03','ORD02','PR03',1,9.99),('ORD_ITEM04','ORD04','PR03',4,159.96),('ORD_ITEM05','ORD04','PR01',7,139.93),('ORD_ITEM06','ORD04','PR02',2,59.98),('ORD_ITEM07','ORD05','PR02',2,59.98),('ORD_ITEM08','ORD06','PR01',3,59.97),('ORD_ITEM09','ORD06','PR02',4,119.96),('ORD_ITEM10','ORD06','PR04',3,59.97),('ORD_ITEM11','ORD07','PR01',1,19.99),('ORD_ITEM12','ORD07','PR02',1,29.99);
+INSERT INTO `order_items` VALUES ('ORD_ITEM01','ORD01','PR01',1,19.99),('ORD_ITEM02','ORD01','PR02',1,29.99),('ORD_ITEM03','ORD02','PR03',1,9.99),('ORD_ITEM04','ORD04','PR03',4,159.96),('ORD_ITEM05','ORD04','PR01',7,139.93),('ORD_ITEM06','ORD04','PR02',2,59.98),('ORD_ITEM07','ORD05','PR02',2,59.98),('ORD_ITEM08','ORD06','PR01',3,59.97),('ORD_ITEM09','ORD06','PR02',4,119.96),('ORD_ITEM10','ORD06','PR04',3,59.97),('ORD_ITEM11','ORD07','PR01',1,19.99),('ORD_ITEM12','ORD07','PR02',1,29.99),('ORD_ITEM13','ORD08','PR01',1005,20089.95),('ORD_ITEM14','ORD08','PR02',2,59.98),('ORD_ITEM15','ORD09','PR01',2,39.98),('ORD_ITEM16','ORD09','PR02',1,29.99);
 /*!40000 ALTER TABLE `order_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,7 +213,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES ('ORD01','USR01',89.97,'2023-01-04 07:30:00','Pending'),('ORD02','USR02',59.98,'2023-01-05 08:45:00','Shipped'),('ORD03','USR03',29.99,'2023-01-06 09:55:00','Delivered'),('ORD04','USR02',359.87,'2023-11-20 18:28:31','Pending'),('ORD05','USR02',59.98,'2023-11-20 18:31:03','Pending'),('ORD06','USR02',239.90,'2023-11-21 03:09:15','Pending'),('ORD07','USR02',49.98,'2023-11-21 03:10:43','Pending');
+INSERT INTO `orders` VALUES ('ORD01','USR01',89.97,'2023-01-04 07:30:00','Pending'),('ORD02','USR02',59.98,'2023-01-05 08:45:00','Shipped'),('ORD03','USR03',29.99,'2023-01-06 09:55:00','Delivered'),('ORD04','USR02',359.87,'2023-11-20 18:28:31','Pending'),('ORD05','USR02',59.98,'2023-11-20 18:31:03','Pending'),('ORD06','USR02',239.90,'2023-11-21 03:09:15','Pending'),('ORD07','USR02',49.98,'2023-11-21 03:10:43','Pending'),('ORD08','USR02',20149.93,'2023-11-22 01:24:39','Pending'),('ORD09','USR01',69.97,'2023-12-15 09:49:53','Pending');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -246,7 +248,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES ('PR01','Product 1','Description for Product 1',19.99,100,'BR01','CA01','https://dictionary.cambridge.org/images/thumb/shirt_noun_002_33400.jpg?version=5.0.357','M'),('PR02','Product 2','Description for Product 2',29.99,75,'BR02','CA02','https://dictionary.cambridge.org/images/thumb/shirt_noun_002_33400.jpg?version=5.0.357','L'),('PR03','Product 3','Description for Product 3',39.99,50,'BR03','CA03','https://dictionary.cambridge.org/images/thumb/shirt_noun_002_33400.jpg?version=5.0.357','S'),('PR04','Product4','Des',19.99,29,'BR01','CA02','https://dictionary.cambridge.org/images/thumb/shirt_noun_002_33400.jpg?version=5.0.357','M');
+INSERT INTO `products` VALUES ('PR01','Product 1','Description for Product 1',19.99,100,'BR01','CA01','https://dictionary.cambridge.org/images/thumb/shirt_noun_002_33400.jpg?version=5.0.357','M'),('PR02','Product 2','Description for Product 2',29.99,75,'BR02','CA02','https://dictionary.cambridge.org/images/thumb/shirt_noun_002_33400.jpg?version=5.0.357','L'),('PR03','Product 3','Description for Product 3',39.99,50,'BR03','CA03','https://dictionary.cambridge.org/images/thumb/shirt_noun_002_33400.jpg?version=5.0.357','S'),('PR04','Product4','Des',19.99,0,'BR01','CA02','https://dictionary.cambridge.org/images/thumb/shirt_noun_002_33400.jpg?version=5.0.357','M'),('PR05','tr','r',111.00,111,'br03','ca02','a.png','x'),('PR06','tr','r',111.00,111,'br03','ca02','','x');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -291,4 +293,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-21 22:06:28
+-- Dump completed on 2023-12-21 20:31:20
