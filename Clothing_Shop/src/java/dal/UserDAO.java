@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.User;
 
+
 /**
  *
  * @author ducmanh
@@ -92,8 +93,10 @@ public class UserDAO extends DAO {
 
         return null;
     }
-
+    //tao moi user dong thoi tao luon cart cho user do
     public void createUser(String username, String password) {
+        CartDAO cdb = new CartDAO();
+        
         String sql = "INSERT INTO `clothing_shop`.`users`\n"
                 + "(`user_id`,`username`,`password`,`is_admin`)\n"
                 + "VALUES\n"
@@ -108,10 +111,16 @@ public class UserDAO extends DAO {
                 maxId = rs.getInt(1);
             }
             String newUser_id = "USR" + String.format("%02d", maxId + 1);
+            
+            
+            
             st.setString(1,newUser_id);
             st.setString(2,username);
             st.setString(3, password);
             st.execute();
+            //co user_id thi tao cart moi
+            cdb.creatCartForNewUser(newUser_id);
+            System.out.println("runnnnn");
         }
         catch(SQLException e){
             System.out.println(e);

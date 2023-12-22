@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import model.Cart;
@@ -71,6 +72,43 @@ public class CartDAO extends DAO {
         return null;
     }
 
+    //tao cart khi tao 1 user 
+    public void creatCartForNewUser(String user_id) {
+        try {
+            String getMaxIdQuery = "SELECT MAX(CAST(SUBSTRING(cart_id, 4) AS UNSIGNED)) AS max_id FROM cart;";
+            PreparedStatement st1 = connection.prepareStatement(getMaxIdQuery);
+            ResultSet rs1 = st1.executeQuery();
+
+            int maxId = 0;
+
+            if (rs1.next()) {
+                maxId = rs1.getInt("max_id");
+            }
+            System.out.println(maxId);
+            // Tạo mã `product_id` mới
+            String newCart_id = "CRT" + String.format("%02d", maxId + 1);
+
+            System.out.println("cartdao:" + newCart_id);
+            String insertCartQuery = "INSERT INTO Cart (cart_id,user_id, created_at, status) VALUES (?,?, ?, ?)";
+
+            // Lấy thời điểm hiện tại
+            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+            // Tạo PreparedStatement
+            PreparedStatement pr = connection.prepareStatement(insertCartQuery);
+            pr.setString(1, newCart_id);
+            pr.setString(2, user_id);
+            pr.setTimestamp(3, currentTimestamp);
+            pr.setString(4, "Active"); // Hoặc có thể set là "Inactive" tùy vào yêu cầu của bạn
+
+            // Thực hiện truy vấn INSERT
+            pr.executeUpdate();
+            System.out.println("hehe tao cart thanh cong");
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     //lay thong tin cart
     public Cart getCartByCartId(String cart_id) {
 
@@ -125,10 +163,62 @@ public class CartDAO extends DAO {
         return list;
     }
 
+    // get quatity cua cart_item
+    public int getQuantityCartItem(String cart_id, String product_id) {
+        int quantity = 0;
+        String sql = "SELECT quantity FROM clothing_shop.cart_items where cart_id =? and product_id=?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, cart_id);
+            st.setString(2, product_id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                quantity = rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return quantity;
+    }
+
     public void addProductToCart(String user_id, String product_id, int quantity) {
         CartDAO cdb = new CartDAO();
         if (cdb.getCartByUserId(user_id) == null) {
             // tao cart moi 
+//            try {
+//                String getMaxIdQuery = "SELECT MAX(CAST(SUBSTRING(cart_id, 4) AS UNSIGNED)) AS max_id FROM cart;";
+//                PreparedStatement st1 = connection.prepareStatement(getMaxIdQuery);
+//                ResultSet rs1 = st1.executeQuery();
+//
+//                int maxId = 0;
+//
+//                if (rs1.next()) {
+//                    maxId = rs1.getInt("max_id");
+//                }
+//
+//                // Tạo mã `product_id` mới
+//                String newCart_id = "CRT" + String.format("%02d", maxId + 1);
+//                
+//                System.out.println("cartdao:" + newCart_id);
+//                String insertCartQuery = "INSERT INTO Cart (cart_id,user_id, created_at, status) VALUES (?,?, ?, ?)";
+//
+//                // Lấy thời điểm hiện tại
+//                Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+//
+//                // Tạo PreparedStatement
+//                PreparedStatement pr = connection.prepareStatement(insertCartQuery);
+//                pr.setString(1,newCart_id);
+//                pr.setString(2, user_id);
+//                pr.setTimestamp(3, currentTimestamp);
+//                pr.setString(4, "Active"); // Hoặc có thể set là "Inactive" tùy vào yêu cầu của bạn
+//
+//                // Thực hiện truy vấn INSERT
+//                pr.executeUpdate();
+//            } catch (SQLException e) {
+//                System.out.println(e);
+//            }
         } else { // neu da co cart
             Cart c = cdb.getCartByUserId(user_id);
             //kiem tra san pham da co trong gio hang chua
@@ -167,7 +257,7 @@ public class CartDAO extends DAO {
                     String newCart_item_id = "CRT_ITEM" + String.format("%03d", maxId + 1);
                     String addCartItemQuery = "INSERT INTO cart_items (cart_item_id,cart_id, product_id, quantity) VALUES (?, ?, ?, ?);";
                     st = connection.prepareStatement(addCartItemQuery);
-                    System.out.println("aa "+newCart_item_id);
+                    System.out.println("aa " + newCart_item_id);
                     st.setString(1, newCart_item_id);
                     st.setString(2, c.getCart_id());
                     st.setString(3, product_id);
@@ -228,8 +318,7 @@ public class CartDAO extends DAO {
                 st.setString(1, item.getCart_item_id());
                 st.execute();
             }
-            
-            
+
         } catch (SQLException e) {
             System.out.println("Line 228" + e);
         }
@@ -238,6 +327,6 @@ public class CartDAO extends DAO {
 
     public static void main(String[] args) {
         CartDAO cartDB = new CartDAO();
-        System.out.println(cartDB.getCartByUserId("USR02"));
+        cartDB.creatCartForNewUser("USR05");
     }
 }

@@ -68,6 +68,7 @@
             <form action="giohang?action=add&&product_id=${c.product_id}" method="post" >
                 <input type="number" name="quantity" />
                 <input type="submit" value="Them vao gio hang" />
+                <p style="color: red">${requestScope.errorStock}</p>
             </form>
             <hr>
 

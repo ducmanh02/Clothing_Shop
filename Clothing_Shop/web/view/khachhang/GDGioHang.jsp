@@ -24,6 +24,7 @@
 
         }
     </style>
+
     <body>
         <jsp:include page="../components/Header.jsp" ></jsp:include>
 
@@ -40,27 +41,33 @@
                         <th>Quantity</th>
                         <th>Total Price</th>
                         <th>action</th>
+                        <th>Warning</th>
                     </tr>
                     <c:forEach var="b" items="${requestScope.listCartItem}"  >
+
+                        
                         <tr>
                             <td>${b.cart_item_id}</td>
                             <td>${b.product.product_id}</td>
                             <td>   
                                 <form action="giohang?action=update&&product_id=${b.product.product_id}" method="post">
-                                    <input type="number" width="20px" value="${b.quantity}" name="quantity"/>
+                                    <input type="number" width="20px" value="${b.quantity}" max="${b.product.stock_quantity}" name="quantity"/>
                                     <input type="submit" value="update"/>
 
                                 </form></td>
-                                <td>${b.total_price}</td>
+                            <td>${b.total_price}</td>
                             <td>
-                                
+
                                 <form action="giohang?action=delete&&product_id=${b.product.product_id}" method="post">
                                     <input type="submit" value="delete"/>
 
                                 </form></td>
+
+                            <td>                               
+                            </td>
                         </tr>
                     </c:forEach>
-                        
+
                 </table>
                 <h4 style="margin: 20px 0">Tổng tiền : ${requestScope.totalPrice}</h4>
                 <a href="dathang">Đặt Hàng</a>

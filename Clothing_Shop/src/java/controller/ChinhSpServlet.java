@@ -68,7 +68,7 @@ public class ChinhSpServlet extends HttpServlet {
         CategoryDAO cdb = new CategoryDAO();
         List<Category> listCategory = cdb.getAll();
         request.setAttribute("listCategory", listCategory);
-
+        
         request.getRequestDispatcher("view/khachhang/GDChinhKH.jsp").forward(request, response);
     }
 

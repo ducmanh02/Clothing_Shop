@@ -5,6 +5,7 @@
 package controller;
 
 import dal.CartDAO;
+import dal.FeedbackDAO;
 import dal.ProductDAO;
 import dal.UserDAO;
 import java.io.IOException;
@@ -19,7 +20,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import model.Cart;
 import model.CartItem;
+import model.Feedback;
 import model.Product;
+import model.ProductTK;
 import model.User;
 
 /**
@@ -69,11 +72,11 @@ public class GioHangServlet extends HttpServlet {
             CartDAO cartdb = new CartDAO();
             Cart cart = cartdb.getCartByUserId(user_id);
             List<CartItem> listCartItem = cartdb.getAllItemInCart(cart.getCart_id()); // list san pham kem so luong va tong tien
-            
+
             // lap tinh tong tien cua gio hang hien tai
             BigDecimal totalPrice = new BigDecimal("0");
-            
-            for(CartItem i : listCartItem){
+
+            for (CartItem i : listCartItem) {
                 BigDecimal item = i.getTotal_price();
                 totalPrice = totalPrice.add(item);
 
@@ -90,26 +93,52 @@ public class GioHangServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-
+        
         HttpSession session = request.getSession();
         UserDAO udb = new UserDAO();
         CartDAO cdb = new CartDAO();
+        ProductDAO pdb = new ProductDAO();
 
         User u = new User();
-
+        Cart cart = new Cart();
+        Product product = new Product();
         try {
             u = (User) session.getAttribute("account"); // get username dang dang nhap
             User user = udb.checkUser(u.getUsername()); // get user
-            System.out.println("user: "+user.getUser_id());
+            System.out.println("user: " + user.getUser_id());
+            cart = cdb.getCartByUserId(user.getUser_id());
+
             if (action.equals("add")) {
                 String product_id = request.getParameter("product_id");
                 String quantity_raw = request.getParameter("quantity");
-                
+
                 try {
                     int quantity = Integer.parseInt(quantity_raw);
- 
-                    cdb.addProductToCart(user.getUser_id(), product_id, quantity);
-                    response.sendRedirect("giohang");
+
+                    //get quatity in cart 
+                    int quantityInCart = cdb.getQuantityCartItem(cart.getCart_id(), product_id);
+
+                    //get stock
+                    product = pdb.getProductByID(product_id);
+                    int product_stock = product.getStock_quantity();
+
+                    if (quantity + quantityInCart > product_stock) {
+
+                        ProductTK productTK = pdb.getProductTKByID(product_id);
+                        request.setAttribute("Product", productTK);
+
+                        FeedbackDAO fdb = new FeedbackDAO();
+                        List<Feedback> listFeedback = fdb.getFeedbackOnThisProduct(product_id);
+                        request.setAttribute("listFeedback", listFeedback);
+
+                        List<ProductTK> listProduct = pdb.getProductTKLienQuan(pdb.getProductTKByID(product_id));
+                        request.setAttribute("listProduct", listProduct);
+                        request.setAttribute("errorStock", "vuot qua so luong trong kho");
+                        request.getRequestDispatcher("view/khachhang/GDChiTietSp.jsp").forward(request, response);
+                    } else {
+                        cdb.addProductToCart(user.getUser_id(), product_id, quantity);
+                        response.sendRedirect("giohang");
+                    }
                 } catch (NumberFormatException e) {
                     System.out.println("line 109 GHServlet");
                 }
@@ -120,7 +149,7 @@ public class GioHangServlet extends HttpServlet {
                 String quantity_raw = request.getParameter("quantity");
                 try {
                     int quantity = Integer.parseInt(quantity_raw);
-                    System.out.println(quantity + "hehe " + u.getUser_id() + " " + product_id);
+
                     cdb.updateProductInCart(u.getUser_id(), product_id, quantity);
                     response.sendRedirect("giohang");
                 } catch (NumberFormatException e) {

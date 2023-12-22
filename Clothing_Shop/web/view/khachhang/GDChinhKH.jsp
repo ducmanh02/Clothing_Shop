@@ -154,25 +154,7 @@
             </table>
         </div>
 
-<!--        <script>
-            function addToCart(productId)
 
-            {
-            var quantityInput = document.getElementById('quantity_' + productI                                                     d);
-            var errorElement = document.getElementById('error_' + productI                                                     d);
-            var selectedQuantity = parseInt(quantityInput.valu                                                     e);
-            var maxQuantity = parseInt(quantityInput.getAttribute('max'));
-            if (selectedQuantity > maxQuantity) {
-            errorElement.textContent = 'Số lượng vượt quá số lượng trong kh                                                     o';
-            quantityInput.value = 1;
-            event.preventDefault(); // Ngăn chặn form được submit nếu có l                                             ỗi
-
-            } els                                             e {
-            errorElement.textContent = ''; // Xóa thông báo lỗi nếu số lượng hợp                                             lệ
-            }
-            }
-
-        </script>-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
                 integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
