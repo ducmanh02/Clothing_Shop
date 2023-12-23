@@ -213,25 +213,25 @@ public class ProductDAO extends DAO {
         }
     }
 
-//    public void update(Product p, String product_id) {
-//        String sql = "UPDATE products SET `product_name` = ?, `description` = ?, `price` = ?, `stock_quantity` = ?, `brand_id` = ?, `category_id` = ? ,`image_url` = ?,`size` = ? WHERE `product_id` = ?;";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setString(1, p.getProduct_name());
-//            st.setString(2, p.getDescription());
-//            st.setBigDecimal(3, p.getPrice());
-//            st.setInt(4, p.getStock_quantity());
-//            st.setString(5, p.getBrand_id());
-//            st.setString(6, p.getCategory_id());
-//            st.setString(7, p.getImage_url());
-//            st.setString(8, p.getSize());
-//            st.setString(9, p.getProduct_id());
-//            st.execute();
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//    }
-//
+    public void update(String product_id,String product_name,String description,BigDecimal price,int stock_quantity,String brand_id,String category_id,String image_url,String size) {
+        String sql = "UPDATE products SET `product_name` = ?, `description` = ?, `price` = ?, `stock_quantity` = ?, `brand_id` = ?, `category_id` = ? ,`image_url` = ?,`size` = ? WHERE `product_id` = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, product_name);
+            st.setString(2, description);
+            st.setBigDecimal(3, price);
+            st.setInt(4, stock_quantity);
+            st.setString(5, brand_id);
+            st.setString(6, category_id);
+            st.setString(7, image_url);
+            st.setString(8, size);
+            st.setString(9, product_id);
+            st.execute();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public void delete(String product_id) {
         String sql = "DELETE FROM products\n"
                 + "WHERE `product_id` = ?";

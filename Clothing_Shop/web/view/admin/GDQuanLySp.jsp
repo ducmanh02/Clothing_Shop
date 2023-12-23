@@ -49,19 +49,35 @@
                 </tr>
 
 
-                <c:forEach items="${requestScope.listProduct}" var="c">
+                <c:forEach items="${requestScope.listProduct}" var="p">
+                    <c:set var="imagePath" value="${p.image_url}" />
                     <tr>
-                        <td>${c.product_id}</td><!-- comment -->
-                        <td>${c.product_name}</td><!-- comment -->
-                        <td>${c.description}</td>
-                        <td>${c.price}</td> 
-                        <td>${c.stock_quantity}</td>  
-                        <td>${c.brand.brand_name} </td>  
-                        <td>${c.category.category_name}</td>  
-                        <td>${c.size}</td>
-                        <td><img src="${c.image_url}" alt="${c.product_name}"></td>
-                        <td><a href="qlsp?action=update&&product_id=${c.product_id}" >Update</a> &nbsp; &nbsp; &nbsp; 
-                            <a href="qlsp?action=delete&&product_id=${c.product_id}" > Delete</a>
+                        <td>${p.product_id}</td><!-- comment -->
+                        <td>${p.product_name}</td><!-- comment -->
+                        <td>${p.description}</td>
+                        <td>${p.price}</td> 
+                        <td>${p.stock_quantity}</td>  
+                        <td>${p.brand.brand_name} </td>  
+                        <td>${p.category.category_name}</td>  
+                        <td>${p.size}</td>
+
+                        <td>
+<!--                            <img src="${p.image_url}" alt="${p.product_name}">-->
+                            <p>${request.contextPath}</p>
+                            <c:choose>
+                                
+                                <c:when test="${not empty imagePath}">
+                                    <img style="width:200px" src="<c:url value='${request.contextPath}${imagePath}'/>" alt="Anh o day"/>
+                                </c:when>
+                                <c:otherwise>
+
+                                    <p>No image available</p>
+                                </c:otherwise>
+                            </c:choose>
+
+                        </td>
+                        <td><a href="qlsp?action=update&&product_id=${p.product_id}" >Update</a> &nbsp; &nbsp; &nbsp; 
+                            <a href="qlsp?action=delete&&product_id=${p.product_id}" > Delete</a>
                         </td>
                     </tr>
                 </c:forEach>
