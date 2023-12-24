@@ -28,6 +28,7 @@
         <div class="container">
             <h1>Trang Quan Ly San Pham</h1>
             <h3><a href="qlsp?action=add">Thêm Sản Phẩm</a></h3>
+            <h3><a href="admin">Back</a></h3>
             <h3>Tim Kiem san pham</h3>
             <form action="qlsp?action=search" method="post">
                 <input type="text" name="tuKhoa" placeholder="Nhap tu khoa">

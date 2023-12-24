@@ -30,14 +30,14 @@
             <h1>Trang Admin!</h1>
             <h3>Hello, ${sessionScope.account.username}</h3>
             <h3>Thong ke san pham ban chay se o day</h3>
-
+            
             <br>
             <hr><!-- comment -->
-            <h3><a href="">Quan Ly User</a></h3>
-            <h3><a href="">Quan Ly Category</a></h3>
-            <h3><a href="">Quan ly Brand</a></h3>
+            <h3><a href="qluser">Quan Ly User</a></h3>
+            <h3><a href="qlbrand">Quan Ly Category</a></h3>
+            <h3><a href="qlcategory">Quan ly Brand</a></h3>
             <h3><a href="qlsp" >Quan ly san pham</a></h3>
-            <h3><a href="">Quan ly Don Hang</h3>
+            <h3><a href="qlorder">Quan ly Don Hang</h3>
         </div>
 
     </body>

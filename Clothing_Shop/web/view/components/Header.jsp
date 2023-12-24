@@ -38,17 +38,18 @@
                 <div class="user">
                     <c:if test="${sessionScope.account ne null}">
                         <h3>Hello, ${sessionScope.account.username}</h3>
+                        <h4> <a href="user?action=update&user_name=${sessionScope.account.username}">Cập nhật thông tin cá nhân</a></h4>
                         <div class="item">
-                            <a href="logout">Log Out</a>
+                            <a href="user?action=logout">Log Out</a>
                         </div>
                     </c:if>
                     <c:if test="${sessionScope.account eq null}">
 
                         <div class="item">
-                            <a href="login">Log In</a>
+                            <a href="user?action=login">Log In</a>
                         </div>
                         <div class="item">
-                            <a href="signup">Sign Up</a>
+                            <a href="user?action=signup">Sign Up</a>
                         </div>
                     </c:if>
 

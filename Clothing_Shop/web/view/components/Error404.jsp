@@ -1,6 +1,6 @@
 <%-- 
-    Document   : GDChiTietUser
-    Created on : Nov 20, 2023, 8:36:47 PM
+    Document   : Error404
+    Created on : Dec 24, 2023, 5:18:40 PM
     Author     : ducmanh
 --%>
 
@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Trang Chi Tiết Người dùng</h1>
+        <h1>Lỗi không tìm thấy trang</h1><!-- comment -->
+        <a href="/home">Quay về trang chủ</a>
     </body>
 </html>

@@ -30,6 +30,7 @@ import java.util.List;
 import model.Brand;
 import model.Category;
 import model.Product;
+import model.ProductTK;
 
 /**
  *
@@ -114,6 +115,8 @@ public class QuanLySpServlet extends HttpServlet {
 
             List<Product> listProduct = pdb.getAll();
             request.setAttribute("listProduct", listProduct);
+            
+            
 
             request.getRequestDispatcher("/view/admin/GDQuanLySp.jsp").forward(request, response);
         }
@@ -126,7 +129,7 @@ public class QuanLySpServlet extends HttpServlet {
         String action = request.getParameter("action");
         ProductDAO pdb = new ProductDAO();
         try {
-            if (action.equalsIgnoreCase("add") && action != null) {
+            if (action.equalsIgnoreCase("add")) {
 
                 String product_name = request.getParameter("product_name");
                 String description = request.getParameter("description");
@@ -170,7 +173,7 @@ public class QuanLySpServlet extends HttpServlet {
                 }
 
             }
-            if (action.equalsIgnoreCase("update") && action != null) {
+            if (action.equalsIgnoreCase("update")) {
                 String product_id = request.getParameter("product_id");
                 String product_name = request.getParameter("product_name");
                 String description = request.getParameter("description");
@@ -213,13 +216,20 @@ public class QuanLySpServlet extends HttpServlet {
                 }
 
             }
+            if (action.equals("search")) {
+            String tuKhoa = request.getParameter("tuKhoa");
+
+            List<Product> listProduct = pdb.getProductTKTheoTen(tuKhoa);
+            request.setAttribute("listProduct", listProduct);
+
+            
+            
+            request.getRequestDispatcher("/view/admin/GDQuanLySp.jsp").forward(request, response);
+        }
 
         } catch (NullPointerException e) {
 
-            List<Product> listProduct = pdb.getAll();
-            request.setAttribute("listProduct", listProduct);
-
-            request.getRequestDispatcher("/view/admin/GDQuanLySp.jsp").forward(request, response);
+            request.getRequestDispatcher("/view/components/Error404.jsp").forward(request, response);
         }
     }
     

@@ -16,7 +16,7 @@
         <h1>Trang Login</h1>
         
         <h3>Login Form</h3>
-        <form action="login" method="post">
+        <form action="user?action=login" method="post">
             <label>Username: </label> <br>
             <input type="text" name="username"><br>
             <label>Password:</label><br>

@@ -17,7 +17,7 @@
         <h1>Trang Sign Up</h1>
         
         <h3>Login Form</h3>
-        <form action="signup" method="post">
+        <form action="user?action=signup" method="post">
             <label>Username: </label> <br>
             <input type="text" name="username"><br>
             <label>Password:</label><br>

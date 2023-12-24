@@ -89,7 +89,7 @@
                         <td>${c.brand.brand_name} </td>  
                         <td>${c.category.category_name}</td>  
                         <td>${c.size}</td>
-                        <td><img src="${c.image_url}" alt="${c.product_name}"></td>
+                        <td><img style="width:200px"  src="${c.image_url}" alt="${c.product_name}"></td>
                         <td><form id="addToCartForm_${c.product_id}" action="giohang?action=add&&product_id=${c.product_id}" method="post" >
 
                                 <!-- Báo lỗi nếu số lượng vượt quá kho -->
@@ -139,7 +139,7 @@
                         <td>${c.brand.brand_name} </td>  
                         <td>${c.category.category_name}</td>  
                         <td>${c.size}</td>
-                        <td><img src="${c.image_url}" alt="${c.product_name}"></td>
+                        <td><img style="width:200px"  src="${c.image_url}" alt="${c.product_name}"></td>
                         <td>${c.total_sold}
                         </td>
                         <td><form action="giohang?action=add&&product_id=${c.product_id}" method="post" >
