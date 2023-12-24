@@ -164,7 +164,7 @@ public class GioHangServlet extends HttpServlet {
 
             }
         } catch (NullPointerException e) {
-            response.sendRedirect("login");
+            response.sendRedirect("user?action=login");
         }
     }
 

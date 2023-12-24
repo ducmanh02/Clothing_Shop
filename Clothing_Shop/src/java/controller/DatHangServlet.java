@@ -61,7 +61,7 @@ public class DatHangServlet extends HttpServlet {
 
         if (session.getAttribute("account") == null) {
             request.setAttribute("error", "Ban Can dang nhap");
-            request.getRequestDispatcher("/view/khachhang/GDDatHang.jsp").forward(request, response);
+            request.getRequestDispatcher("/view/khachhang/GDLogin.jsp").forward(request, response);
         } else {
             User u = (User) session.getAttribute("account");
             String user_id = u.getUser_id();

@@ -66,8 +66,14 @@
             </table>
             <br>
             <form action="giohang?action=add&&product_id=${c.product_id}" method="post" >
-                <input type="number" name="quantity" />
-                <input type="submit" value="Them vao gio hang" />
+                <!-- Báo lỗi nếu số lượng vượt quá kho -->
+                                <c:if test="${c.stock_quantity lt 1}">
+                                    <p style="color: red">Hết hàng</p>
+                                </c:if>
+                                <c:if test="${c.stock_quantity gt 1}">
+                                    <input type="number" name="quantity" required min="1" max="${c.stock_quantity}" onclick="addToCart(${c.product_id})" / >
+                                    <input type="submit" value="Them vao gio hang"  />
+                                </c:if>
                 <p style="color: red">${requestScope.errorStock}</p>
             </form>
             <hr>

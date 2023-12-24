@@ -36,6 +36,14 @@
         <servlet-name>DatHangServlet</servlet-name>
         <servlet-class>controller.DatHangServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuanLyBrandServlet</servlet-name>
+        <servlet-class>controller.QuanLyBrandServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuanLyCategoryServlet</servlet-name>
+        <servlet-class>controller.QuanLyCategoryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ChinhSpServlet</servlet-name>
         <url-pattern>/chinhsp</url-pattern>
@@ -71,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>DatHangServlet</servlet-name>
         <url-pattern>/dathang</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuanLyBrandServlet</servlet-name>
+        <url-pattern>/qlbrand</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuanLyCategoryServlet</servlet-name>
+        <url-pattern>/qlcategory</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -68,7 +68,7 @@
                             <c:choose>
                                 
                                 <c:when test="${not empty imagePath}">
-                                    <img style="width:200px" src="<c:url value='${request.contextPath}${imagePath}'/>" alt="Anh o day"/>
+                                    <img style="width:200px" src="<c:url value='${imagePath}'/>" alt="Anh o day"/>
                                 </c:when>
                                 <c:otherwise>
 
