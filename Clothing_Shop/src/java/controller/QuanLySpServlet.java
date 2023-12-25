@@ -185,7 +185,7 @@ public class QuanLySpServlet extends HttpServlet {
                 }
                 // lấy đường dẫn
                 Part filePart = request.getPart("image_url");
-                if (filePart == null && filePart.getSize() > 0) {
+                if (filePart != null && filePart.getSize() > 0) {
                     String fileName = getFileName(filePart);
 
                     // Lưu trữ ảnh vào thư mục trên máy chủ
@@ -206,7 +206,7 @@ public class QuanLySpServlet extends HttpServlet {
                         response.sendRedirect("qlsp");
 
                     } catch (NumberFormatException e) {
-//                    System.out.println("2222 " + product_name + " " + description + " " + image_url);
+                    System.out.println("update image " + product_name + " " + description + " " + img_url);
                     }
 
                 } else {
