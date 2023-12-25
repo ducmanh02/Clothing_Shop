@@ -14,6 +14,7 @@
     </head>
     <body>
         <h1>Quan Ly Category</h1>
+        <a href="admin">Back</a>
         <a href="qlcategory?action=add">Them Category</a>
         <table border="1px">
             <tr>

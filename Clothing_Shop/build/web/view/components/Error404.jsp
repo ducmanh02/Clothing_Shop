@@ -13,6 +13,6 @@
     </head>
     <body>
         <h1>Lỗi không tìm thấy trang</h1><!-- comment -->
-        <a href="/home">Quay về trang chủ</a>
+        <a href="home">Quay về trang chủ</a>
     </body>
 </html>

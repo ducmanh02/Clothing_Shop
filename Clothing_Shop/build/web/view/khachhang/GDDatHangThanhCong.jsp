@@ -28,7 +28,8 @@
         <jsp:include page="../components/Header.jsp" ></jsp:include>
         <div class="container">
             <h4>Đặt Hàng Thành Công</h4>
-            <a href="/Clothing_Shop">Tiếp tục mua sắm</a>
+            <a href="dathang?action=showAll">Danh sách đơn hàng</a>
+            <a href="/Clothing_Shop/home">Tiếp tục mua sắm</a>
         </div> 
 
     </body>

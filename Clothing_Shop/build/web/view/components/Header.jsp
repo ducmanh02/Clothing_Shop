@@ -37,7 +37,9 @@
                     </a></div>
                 <div class="user">
                     <c:if test="${sessionScope.account ne null}">
+                        
                         <h3>Hello, ${sessionScope.account.username}</h3>
+                        <h4><a href="dathang?action=showAll">Xem đơn hàng</a></h4>
                         <h4> <a href="user?action=update&user_name=${sessionScope.account.username}">Cập nhật thông tin cá nhân</a></h4>
                         <div class="item">
                             <a href="user?action=logout">Log Out</a>

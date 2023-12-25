@@ -181,11 +181,9 @@ public class ProductDAO extends DAO {
     public void insert(String product_name, String description, BigDecimal price, int stock_quantity, String brand_id, String category_id, String image_url, String size) {
         String getMaxIdQuery = "SELECT MAX(CAST(SUBSTRING(product_id, 3) AS UNSIGNED)) AS max_id FROM products;";
 
-       
         try {
             PreparedStatement st = connection.prepareStatement(getMaxIdQuery);
             ResultSet rs = st.executeQuery();
-           
 
             int maxId = 0;
 
@@ -200,20 +198,20 @@ public class ProductDAO extends DAO {
             st = connection.prepareStatement(addProductQuery);
             st.setString(1, newProduct_item_id);
             st.setString(2, product_name);
-            st.setString(3,description);
-            st.setBigDecimal(4,price);
-            st.setInt(5,stock_quantity);
+            st.setString(3, description);
+            st.setBigDecimal(4, price);
+            st.setInt(5, stock_quantity);
             st.setString(6, brand_id);
             st.setString(7, category_id);
             st.setString(8, image_url);
             st.setString(9, size);
             st.execute();
         } catch (SQLException e) {
-            System.out.println("loi them san pham "+e);
+            System.out.println("loi them san pham " + e);
         }
     }
 
-    public void update(String product_id,String product_name,String description,BigDecimal price,int stock_quantity,String brand_id,String category_id,String image_url,String size) {
+    public void update(String product_id, String product_name, String description, BigDecimal price, int stock_quantity, String brand_id, String category_id, String image_url, String size) {
         String sql = "UPDATE products SET `product_name` = ?, `description` = ?, `price` = ?, `stock_quantity` = ?, `brand_id` = ?, `category_id` = ? ,`image_url` = ?,`size` = ? WHERE `product_id` = ?;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -226,6 +224,19 @@ public class ProductDAO extends DAO {
             st.setString(7, image_url);
             st.setString(8, size);
             st.setString(9, product_id);
+            st.execute();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateStock(String product_id, int stock_quantity) {
+        String sql = "UPDATE products SET  `stock_quantity` = ? WHERE `product_id` = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            st.setInt(1, stock_quantity);
+            st.setString(2, product_id);
             st.execute();
         } catch (SQLException e) {
             System.out.println(e);
@@ -439,7 +450,7 @@ public class ProductDAO extends DAO {
 
     public static void main(String[] args) {
         ProductDAO pdb = new ProductDAO();
-        ProductTK p = pdb.getProductTKByID("PR03");
+        pdb.updateStock("PR01", 92);
 
 //        System.out.println(pdb.getProductByCategory("CA01"));
     }

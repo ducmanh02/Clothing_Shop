@@ -209,12 +209,21 @@ public class UserDAO extends DAO {
     }
 
     public void deleteUser(String username) {
+        UserDAO udb = new UserDAO();
+        User u = udb.checkUser(username);
+        
         String sql = "DELETE FROM `clothing_shop`.`users` where username= ?";
+        String deleteCart = "DELETE FROM `clothing_shop`.`cart` where user_id= ?";
         try {
+            //delete cart first
+            PreparedStatement st1 = connection.prepareStatement(deleteCart);
+            st1.setString(1, u.getUser_id());
+            st1.execute();
+            
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
-
             st.execute();
+            
         } catch (SQLException e) {
             System.out.println(e);
         }

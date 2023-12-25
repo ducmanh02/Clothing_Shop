@@ -15,6 +15,7 @@
     <body>
         <c:set var="user" value="${requestScope.user}" />
         <h1>Cap Nhat Thong Tin User</h1>
+        <a href="qluser">Back</a>
         <!-- Biểu mẫu cập nhật thông tin người dùng -->
         <form action="qluser?action=update" method="post">
             <input type="hidden" name="userId" value="${user.getUser_id()}">

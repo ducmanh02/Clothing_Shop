@@ -24,6 +24,6 @@
             <input type="submit" value="Login">
         </form>
         <h3 style="color: red">${requestScope.error}</h3>
-        <a href="signup">Tao Tai Khoan</a>
+        <a href="user?action=signup">Tao Tai Khoan</a>
     </body>
 </html>

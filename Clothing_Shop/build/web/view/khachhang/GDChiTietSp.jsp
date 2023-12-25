@@ -57,7 +57,7 @@
                     <td>${c.brand.brand_name} </td>  
                     <td>${c.category.category_name}</td>  
                     <td>${c.size}</td>
-                    <td><img src="${c.image_url}" alt="${c.product_name}"></td>
+                    <td><img style="width:200px" src="${c.image_url}" alt="${c.product_name}"></td>
                     <td>${c.total_sold}
                     </td>
                 </tr>
@@ -70,7 +70,7 @@
                                 <c:if test="${c.stock_quantity lt 1}">
                                     <p style="color: red">Hết hàng</p>
                                 </c:if>
-                                <c:if test="${c.stock_quantity gt 1}">
+                                <c:if test="${c.stock_quantity ge 1}">
                                     <input type="number" name="quantity" required min="1" max="${c.stock_quantity}" onclick="addToCart(${c.product_id})" / >
                                     <input type="submit" value="Them vao gio hang"  />
                                 </c:if>
@@ -113,7 +113,7 @@
                 <c:forEach items="${requestScope.listFeedback}" var="c">
                     <tr>
                         <td>${c.feedback_id}</td><!-- comment -->
-                        <td>${c.user_id}</td><!-- comment -->
+                        <td>${c.getUser().getUsername()}</td><!-- comment -->
                         <td>${c.rating}</td>
                         <td>${c.comment}</td> 
                         <td>${c.created_at}</td>  
@@ -145,8 +145,8 @@
                         <td>${c.description}</td>
                         <td>${c.price}</td> 
                         <td>${c.stock_quantity}</td>  
-                        <td>${c.brand.brand_id} </td>  
-                        <td>${c.category.category_id}</td>  
+                        <td>${c.brand.brand_name} </td>  
+                        <td>${c.category.category_name}</td>  
                         <td>${c.size}</td>
                         <td>${c.total_sold}</td>
                         <td><img src="${c.image_url}" alt="${c.product_name}"></td>

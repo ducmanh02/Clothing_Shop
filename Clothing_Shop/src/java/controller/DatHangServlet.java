@@ -20,6 +20,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import model.Cart;
 import model.CartItem;
+import model.Order;
+import model.OrderItem;
 import model.User;
 
 /**
@@ -28,60 +30,72 @@ import model.User;
  */
 public class DatHangServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DatHangServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DatHangServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        String action = request.getParameter("action");
+        OrderDAO odb = new OrderDAO();
 
         if (session.getAttribute("account") == null) {
             request.setAttribute("error", "Ban Can dang nhap");
-            request.getRequestDispatcher("/view/khachhang/GDLogin.jsp").forward(request, response);
+            request.getRequestDispatcher("/view/nguoidung/GDLogin.jsp").forward(request, response);
         } else {
-            User u = (User) session.getAttribute("account");
-            String user_id = u.getUser_id();
-            CartDAO cartdb = new CartDAO();
-            Cart cart = cartdb.getCartByUserId(user_id);
-            List<CartItem> listCartItem = cartdb.getAllItemInCart(cart.getCart_id()); // list san pham kem so luong va tong tien
+            try {
+                User u = (User) session.getAttribute("account");
+                String user_id = u.getUser_id();
+                if (action.equals("showAll")) {
 
-            // lap tinh tong tien cua gio hang hien tai
-            BigDecimal totalPrice = new BigDecimal("0");
+                    List<Order> listorder = odb.getAllOrderByUserId(user_id);
+                    request.setAttribute("orders", listorder);
 
-            for (CartItem i : listCartItem) {
-                BigDecimal item = i.getTotal_price();
-                totalPrice = totalPrice.add(item);
+                    request.getRequestDispatcher("/view/khachhang/GDDSDonHang.jsp").forward(request, response);
 
+                }
+                if (action.equals("showItem")) {
+                    String order_id = request.getParameter("order_id");
+                    List<OrderItem> list = odb.getOrderItemByOrderId(order_id);
+                    request.setAttribute("orders", list);
+
+                    request.getRequestDispatcher("/view/khachhang/GDChiTietDh.jsp").forward(request, response);
+                }
+                if (action.equals("cancel")) {
+                    String order_id = request.getParameter("order_id");
+                    odb.updateStatusOrder(order_id, "canceled");
+                    List<Order> listorder = odb.getAllOrderByUserId(user_id);
+                    request.setAttribute("orders", listorder);
+
+                    request.getRequestDispatcher("/view/khachhang/GDDSDonHang.jsp").forward(request, response);
+
+
+                }
+                if (action.equals("order")) {
+
+                    CartDAO cartdb = new CartDAO();
+                    Cart cart = cartdb.getCartByUserId(user_id);
+                    List<CartItem> listCartItem = cartdb.getAllItemInCart(cart.getCart_id()); // list san pham kem so luong va tong tien
+                    if (!listCartItem.isEmpty()) {
+
+                        // lap tinh tong tien cua gio hang hien tai
+                        BigDecimal totalPrice = new BigDecimal("0");
+
+                        for (CartItem i : listCartItem) {
+                            BigDecimal item = i.getTotal_price();
+                            totalPrice = totalPrice.add(item);
+
+                        }
+
+                        request.setAttribute("totalPrice", totalPrice); // tong tien cua gio hang
+                        request.setAttribute("listCartItem", listCartItem);
+                        request.getRequestDispatcher("/view/khachhang/GDDatHang.jsp").forward(request, response);
+
+                    }
+                    response.sendRedirect("chinhsp");
+                }
+
+            } catch (NullPointerException e) {
+                request.getRequestDispatcher("/view/components/Error404.jsp").forward(request, response);
             }
-
-
-            request.setAttribute("totalPrice", totalPrice); // tong tien cua gio hang
-            request.setAttribute("listCartItem", listCartItem);
-            request.getRequestDispatcher("/view/khachhang/GDDatHang.jsp").forward(request, response);
         }
 
     }
@@ -102,8 +116,7 @@ public class DatHangServlet extends HttpServlet {
         CartDAO cartdb = new CartDAO();
         Cart cart = cartdb.getCartByUserId(user_id);
         List<CartItem> listCartItem = cartdb.getAllItemInCart(cart.getCart_id()); // list san pham kem so luong va tong tien
-        
-        
+
         // lap tinh tong tien cua gio hang hien tai
         BigDecimal totalPrice = new BigDecimal("0");
         for (CartItem i : listCartItem) {
@@ -114,20 +127,20 @@ public class DatHangServlet extends HttpServlet {
         LocalDateTime orderDate = LocalDateTime.now();
 
         //set status :pending
-        String status= "Pending";
+        String status = "Pending";
         //tao order, ham tra ve order_id
         OrderDAO odb = new OrderDAO();
         String order_id = odb.createOrder(user_id, totalPrice, orderDate, status);
-        
+
         // luu thong tin cart_item vao order_item
         for (CartItem i : listCartItem) {
             odb.createOderItem(order_id, i.getProduct().getProduct_id(), i.getQuantity(), i.getTotal_price());
-            
+
         }
-       // xoa gio hang cua user hien tai 
-       CartDAO cdb = new CartDAO();
-       cdb.removeItemsFromCart(cart, listCartItem);
-        
+        // xoa gio hang cua user hien tai 
+        CartDAO cdb = new CartDAO();
+        cdb.removeItemsFromCart(cart, listCartItem);
+
         request.getRequestDispatcher("/view/khachhang/GDDatHangThanhCong.jsp").forward(request, response);
     }
 

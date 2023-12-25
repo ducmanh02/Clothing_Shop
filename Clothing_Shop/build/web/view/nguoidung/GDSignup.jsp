@@ -15,7 +15,7 @@
     <body>
         
         <h1>Trang Sign Up</h1>
-        
+       
         <h3>Login Form</h3>
         <form action="user?action=signup" method="post">
             <label>Username: </label> <br>
@@ -27,6 +27,6 @@
             <input type="submit" value="Sign Up">
         </form>
         <h3 style="color: red">${requestScope.error}</h3>
-        <a href="login">Da co tai khoan</a>
+        <a href="user?action=login">Da co tai khoan</a>
     </body>
 </html>

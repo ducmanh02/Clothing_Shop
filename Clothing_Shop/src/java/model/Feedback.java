@@ -11,7 +11,9 @@ import java.sql.Timestamp;
  * @author ducmanh
  */
 public class Feedback {
-    private String feedback_id, user_id, product_id;
+    private String feedback_id;
+    private User user;
+    private Product product;
     private int rating;
     private String comment;
     private Timestamp created_at;
@@ -19,10 +21,10 @@ public class Feedback {
     public Feedback() {
     }
 
-    public Feedback(String feedback_id, String user_id, String product_id, int rating, String comment, Timestamp created_at) {
+    public Feedback(String feedback_id, User user, Product product, int rating, String comment, Timestamp created_at) {
         this.feedback_id = feedback_id;
-        this.user_id = user_id;
-        this.product_id = product_id;
+        this.user = user;
+        this.product = product;
         this.rating = rating;
         this.comment = comment;
         this.created_at = created_at;
@@ -36,20 +38,20 @@ public class Feedback {
         this.feedback_id = feedback_id;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getProduct_id() {
-        return product_id;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProduct_id(String product_id) {
-        this.product_id = product_id;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getRating() {
@@ -75,5 +77,7 @@ public class Feedback {
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
     }
+
+    
     
 }

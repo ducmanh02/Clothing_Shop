@@ -14,7 +14,7 @@
     </head>
     <body>
         <h1>Trang Quan Ly Brand</h1>
-        
+        <a href="admin">Back</a>
         <a href="qlbrand?action=add">Them Brand</a>
         <table border="1px">
                     <tr>

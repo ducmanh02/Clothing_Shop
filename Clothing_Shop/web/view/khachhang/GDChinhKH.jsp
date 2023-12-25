@@ -96,7 +96,7 @@
                                 <c:if test="${c.stock_quantity lt 1}">
                                     <p style="color: red">Hết hàng</p>
                                 </c:if>
-                                <c:if test="${c.stock_quantity gt 1}">
+                                <c:if test="${c.stock_quantity ge 1}">
                                     <input type="number" name="quantity" required min="1" max="${c.stock_quantity}" onclick="addToCart(${c.product_id})" / >
                                     <input type="submit" value="Them vao gio hang"  />
                                 </c:if>

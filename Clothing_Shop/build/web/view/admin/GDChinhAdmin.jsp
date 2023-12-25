@@ -37,7 +37,8 @@
             <h3><a href="qlcategory">Quan Ly Category</a></h3>
             <h3><a href="qlbrand">Quan ly Brand</a></h3>
             <h3><a href="qlsp" >Quan ly san pham</a></h3>
-            <h3><a href="qlorder">Quan ly Don Hang</h3>
+            <h3><a href="qlorder?action=showAll">Quan ly Don Hang</h3>
+            <h3><a href="qlfeedback?action=showAll">Quan ly FeedBack</h3>
         </div>
 
     </body>

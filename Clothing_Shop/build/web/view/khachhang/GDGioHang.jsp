@@ -70,7 +70,7 @@
 
                 </table>
                 <h4 style="margin: 20px 0">Tổng tiền : ${requestScope.totalPrice}</h4>
-                <a href="dathang">Đặt Hàng</a>
+                <a href="dathang?action=order">Đặt Hàng</a>
         </div>
     </body>
 </html>

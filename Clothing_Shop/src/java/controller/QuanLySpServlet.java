@@ -74,12 +74,12 @@ public class QuanLySpServlet extends HttpServlet {
         String action = request.getParameter("action");
         ProductDAO pdb = new ProductDAO();
         try {
-            if (action.equalsIgnoreCase("delete") && action != null) {
+            if (action.equalsIgnoreCase("delete")) {
                 String product_id = request.getParameter("product_id");
                 pdb.delete(product_id);
                 response.sendRedirect("qlsp");
             }
-            if (action.equalsIgnoreCase("update") && action != null) {
+            if (action.equalsIgnoreCase("update")) {
 
                 //get all brand
                 BrandDAO bdb = new BrandDAO();
@@ -107,7 +107,6 @@ public class QuanLySpServlet extends HttpServlet {
                 List<Category> listCategories = cdb.getAll();
                 request.setAttribute("listCategories", listCategories);
 
-               
                 request.getRequestDispatcher("/view/admin/GDThemSp.jsp").forward(request, response);
             }
 
@@ -115,8 +114,6 @@ public class QuanLySpServlet extends HttpServlet {
 
             List<Product> listProduct = pdb.getAll();
             request.setAttribute("listProduct", listProduct);
-            
-            
 
             request.getRequestDispatcher("/view/admin/GDQuanLySp.jsp").forward(request, response);
         }
@@ -138,8 +135,8 @@ public class QuanLySpServlet extends HttpServlet {
                 String brand_id = request.getParameter("brand_id");
                 String category_id = request.getParameter("category_id");
                 String size = request.getParameter("size");
-                
-                 // Thao tác file ảnh
+
+                // Thao tác file ảnh
                 String uploadPath = "C:\\Users\\ducma\\OneDrive\\Desktop\\Ki_7\\LapTrinhWeb\\Project\\Clothing_Shop\\web\\asset\\img_product";  // Đường dẫn đến thư mục lưu trữ ảnh
                 File uploadDir = new File(uploadPath);
                 if (!uploadDir.exists()) {
@@ -155,12 +152,9 @@ public class QuanLySpServlet extends HttpServlet {
 
                 // modify path ảnh lưu ( modify để có thể hiển thị)
                 String imgPath_raw = imagePath.toString();
-                String img_url =  imgPath_raw.substring(75); // cắt đoạn ký tự đầu
+                String img_url = imgPath_raw.substring(75); // cắt đoạn ký tự đầu
                 System.out.println(img_url);
 
-                
-                
-                
                 try {
                     BigDecimal price = new BigDecimal(price_raw);
                     int stock_quantity = Integer.parseInt(stock_quantity_raw);
@@ -182,7 +176,7 @@ public class QuanLySpServlet extends HttpServlet {
                 String brand_id = request.getParameter("brand_id");
                 String category_id = request.getParameter("category_id");
                 String size = request.getParameter("size");
-                
+
                 // Thao tác file ảnh
                 String uploadPath = "C:\\Users\\ducma\\OneDrive\\Desktop\\Ki_7\\LapTrinhWeb\\Project\\Clothing_Shop\\web\\asset\\img_product";  // Đường dẫn đến thư mục lưu trữ ảnh
                 File uploadDir = new File(uploadPath);
@@ -191,48 +185,61 @@ public class QuanLySpServlet extends HttpServlet {
                 }
                 // lấy đường dẫn
                 Part filePart = request.getPart("image_url");
-                String fileName = getFileName(filePart);
+                if (filePart == null && filePart.getSize() > 0) {
+                    String fileName = getFileName(filePart);
 
-                // Lưu trữ ảnh vào thư mục trên máy chủ
-                Path imagePath = Paths.get(uploadPath, fileName);
-                Files.copy(filePart.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
+                    // Lưu trữ ảnh vào thư mục trên máy chủ
+                    Path imagePath = Paths.get(uploadPath, fileName);
+                    Files.copy(filePart.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
 
-                // modify path ảnh lưu ( modify để có thể hiển thị)
-                String imgPath_raw = imagePath.toString();
-                String img_url =  imgPath_raw.substring(75); // cắt đoạn ký tự đầu
-                System.out.println(img_url);
-                
-                try {
-                    BigDecimal price = new BigDecimal(price_raw);
-                    int stock_quantity = Integer.parseInt(stock_quantity_raw);
-                    pdb.update(product_id, product_name, description, price, stock_quantity, brand_id, category_id, img_url, size);
-                    System.out.println("22 " + product_name + " " + brand_id + " " + category_id);
-                    
-                    
-                    response.sendRedirect("qlsp");
+                    // modify path ảnh lưu ( modify để có thể hiển thị)
+                    String imgPath_raw = imagePath.toString();
+                    String img_url = imgPath_raw.substring(75); // cắt đoạn ký tự đầu
+                    System.out.println(img_url);
 
-                } catch (NumberFormatException e) {
+                    try {
+                        BigDecimal price = new BigDecimal(price_raw);
+                        int stock_quantity = Integer.parseInt(stock_quantity_raw);
+                        pdb.update(product_id, product_name, description, price, stock_quantity, brand_id, category_id, img_url, size);
+                        System.out.println("22 " + product_name + " " + brand_id + " " + category_id);
+
+                        response.sendRedirect("qlsp");
+
+                    } catch (NumberFormatException e) {
 //                    System.out.println("2222 " + product_name + " " + description + " " + image_url);
+                    }
+
+                } else {
+                    // khong thay doi anh
+
+                    try {
+                        BigDecimal price = new BigDecimal(price_raw);
+                        int stock_quantity = Integer.parseInt(stock_quantity_raw);
+                        pdb.update(product_id, product_name, description, price, stock_quantity, brand_id, category_id, pdb.getProductByID(product_id).getImage_url(), size);
+
+                        response.sendRedirect("qlsp");
+
+                    } catch (NumberFormatException e) {
+//                    System.out.println("2222 " + product_name + " " + description + " " + image_url);
+                    }
                 }
 
             }
             if (action.equals("search")) {
-            String tuKhoa = request.getParameter("tuKhoa");
+                String tuKhoa = request.getParameter("tuKhoa");
 
-            List<Product> listProduct = pdb.getProductTKTheoTen(tuKhoa);
-            request.setAttribute("listProduct", listProduct);
+                List<Product> listProduct = pdb.getProductTKTheoTen(tuKhoa);
+                request.setAttribute("listProduct", listProduct);
 
-            
-            
-            request.getRequestDispatcher("/view/admin/GDQuanLySp.jsp").forward(request, response);
-        }
+                request.getRequestDispatcher("/view/admin/GDQuanLySp.jsp").forward(request, response);
+            }
 
         } catch (NullPointerException e) {
 
             request.getRequestDispatcher("/view/components/Error404.jsp").forward(request, response);
         }
     }
-    
+
     private String getFileName(Part part) {
         final String partHeader = part.getHeader("content-disposition");
         for (String content : partHeader.split(";")) {
@@ -242,8 +249,6 @@ public class QuanLySpServlet extends HttpServlet {
         }
         return null;
     }
-
-    
 
     /**
      * Returns a short description of the servlet.

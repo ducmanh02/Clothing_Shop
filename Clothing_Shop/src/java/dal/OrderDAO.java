@@ -9,12 +9,108 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import model.Order;
+import model.OrderItem;
+import model.User;
 
 /**
  *
  * @author ducmanh
  */
 public class OrderDAO extends DAO {
+    
+    public Order getOrderByOrderId(String order_id){
+        String sql = "select * from orders where order_id =?";
+        UserDAO udb = new UserDAO();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, order_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String user_id = rs.getString(2);
+                
+                Order o = new Order(rs.getString(1), udb.getUserById(user_id), rs.getBigDecimal(3), rs.getTimestamp(4), rs.getString(5));
+                return o;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public List<Order> getAllOrder() {
+        List<Order> list = new ArrayList<>();
+        UserDAO udb = new UserDAO();
+        String sql = "select * from orders";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                Order o = new Order(rs.getString(1), udb.getUserById(rs.getString(2)), rs.getBigDecimal(3), rs.getTimestamp(4), rs.getString(5));
+                list.add(o);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Order> getAllOrderByUserId(String user_id) {
+        List<Order> list = new ArrayList<>();
+        UserDAO udb = new UserDAO();
+        String sql = "select * from orders where user_id =?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, user_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                Order o = new Order(rs.getString(1), udb.getUserById(user_id), rs.getBigDecimal(3), rs.getTimestamp(4), rs.getString(5));
+                list.add(o);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    public List<OrderItem> getOrderItemByOrderId(String order_id) {
+        OrderDAO odb = new OrderDAO();
+        List<OrderItem> list = new ArrayList<>();
+        UserDAO udb = new UserDAO();
+        ProductDAO pdb = new ProductDAO();
+        String sql = "select * from order_items where order_id =?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, order_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                OrderItem o = new OrderItem(rs.getString(1), odb.getOrderByOrderId(rs.getString(2)),pdb.getProductByID(rs.getString(3)) , rs.getInt(4), rs.getBigDecimal(5));
+                list.add(o);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    // update order
+    public void updateStatusOrder(String order_id, String newStatus) {
+        String sql = "UPDATE orders SET status = ? WHERE order_id = ? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, newStatus);
+            st.setString(2, order_id);
+            st.executeUpdate();
+        } catch (SQLException var5) {
+            System.out.println("Error updating order status: " + String.valueOf(var5));
+        }
+    }
 
     public String createOrder(String user_id, BigDecimal total_price, LocalDateTime order_date, String status) {
         String sql = "SELECT MAX(CAST(SUBSTRING(order_id, 4) AS UNSIGNED)) AS max_id FROM orders;";
@@ -63,7 +159,7 @@ public class OrderDAO extends DAO {
                     + "(`order_item_id`,`order_id`,`product_id`,`quantity`,`total_price`) VALUES (?,?,?,?,?);";
             st = connection.prepareStatement(sql);
             st.setString(1, newOrder_Item_id);
-            st.setString(2,order_id );
+            st.setString(2, order_id);
             st.setString(3, product_id);
             st.setInt(4, quantity);
             st.setBigDecimal(5, total_price);
@@ -72,5 +168,10 @@ public class OrderDAO extends DAO {
         } catch (SQLException e) {
             System.out.println("Line 73: " + e);
         }
+    }
+
+    public static void main(String[] args) {
+        OrderDAO odb = new OrderDAO();
+        System.out.println(odb.getOrderItemByOrderId("ORD02"));
     }
 }
