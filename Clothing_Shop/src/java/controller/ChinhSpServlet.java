@@ -54,22 +54,51 @@ public class ChinhSpServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductDAO pdb = new ProductDAO();
-        List<Product> listProduct = pdb.getAll();
-        request.setAttribute("listProduct", listProduct);
-
-        List<ProductTK> listProductTK = pdb.getProductBanChay();
-        request.setAttribute("listProductTK", listProductTK);
-
+        String action = request.getParameter("action");
         BrandDAO bdb = new BrandDAO();
-        List<Brand> listBrand = bdb.getAll();
-        request.setAttribute("listBrand", listBrand);
-
+        ProductDAO pdb = new ProductDAO();
         CategoryDAO cdb = new CategoryDAO();
-        List<Category> listCategory = cdb.getAll();
-        request.setAttribute("listCategory", listCategory);
-        
-        request.getRequestDispatcher("view/khachhang/GDChinhKH.jsp").forward(request, response);
+        try {
+            if (action.equals("filter")) {
+                String brand_id = request.getParameter("brand_id");
+                String category_id = request.getParameter("category_id");
+
+                List<Brand> listBrand = bdb.getAll();
+                request.setAttribute("listBrand", listBrand);
+
+                List<Category> listCategory = cdb.getAll();
+                request.setAttribute("listCategory", listCategory);
+
+                if (brand_id != null && category_id == null) {
+                    List<Product> listProduct = pdb.getProductByBrand(brand_id);
+                    request.setAttribute("listProduct", listProduct);
+                }
+                if (brand_id == null && category_id != null) {
+                    List<Product> listProduct = pdb.getProductByCategory(category_id);
+                    request.setAttribute("listProduct", listProduct);
+                }
+                List<ProductTK> listProductTK = pdb.getProductBanChay();
+                request.setAttribute("listProductTK", listProductTK);
+                request.getRequestDispatcher("view/khachhang/GDChinhKH.jsp").forward(request, response);
+            }
+        } catch (NullPointerException e) {
+
+            if (action == null) {
+                List<Product> listProduct = pdb.getAll();
+                request.setAttribute("listProduct", listProduct);
+
+                List<ProductTK> listProductTK = pdb.getProductBanChay();
+                request.setAttribute("listProductTK", listProductTK);
+
+                List<Brand> listBrand = bdb.getAll();
+                request.setAttribute("listBrand", listBrand);
+
+                List<Category> listCategory = cdb.getAll();
+                request.setAttribute("listCategory", listCategory);
+
+                request.getRequestDispatcher("view/khachhang/GDChinhKH.jsp").forward(request, response);
+            }
+        }
     }
 
     @Override
@@ -93,8 +122,7 @@ public class ChinhSpServlet extends HttpServlet {
             List<ProductTK> listProductTK = pdb.getProductBanChay();
             request.setAttribute("listProductTK", listProductTK);
             request.getRequestDispatcher("view/khachhang/GDChinhKH.jsp").forward(request, response);
-        }
-        else{
+        } else {
             request.getRequestDispatcher("chinhsp").forward(request, response);
         }
 
