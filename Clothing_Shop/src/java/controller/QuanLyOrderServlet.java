@@ -83,6 +83,7 @@ public class QuanLyOrderServlet extends HttpServlet {
                                 pdb.updateStock(o.getProduct().getProduct_id(), decrease);
                             }
                         }
+                        response.sendRedirect("qlorder?action=showAll");
                     }
                     else{
                         odb.updateStatusOrder(order_id, newStatus);
