@@ -24,6 +24,7 @@
                 <th>Status</th>
                 <th>Đổi trạng thái</th>
                 <th>Xem chi tiết</th>
+                <th>Thông báo </th>
             </tr>
             <c:forEach var="order" items="${orders}">
                 <tr>
@@ -34,37 +35,32 @@
                     <td>${order.status} 
                     </td>
                     <td>
-                        <c:if test="${order.status ne 'canceled' && order.status ne 'Shipped' && order.status ne 'Delivered' }">
+                        <c:if test="${order.status eq 'Pending'  }">
                             <form action="qlorder" method="get">
                                 <input type="hidden" name="action" value="changeStatus" />
                                 <input type="hidden" name="order_id" value="${order.order_id}" />
                                 <select name="newStatus">
-                                    
-                                    <option value="Pending">Pending</option>
                                     <option value="Shipped">Shipped</option>
-                                    <option value="Delivered">Delivered</option>
                                     <option value="Canceled">Cancelled</option>
                                 </select>
                                 <input type="submit" value="Save" />
                             </form>
 
                         </c:if>
-                        <c:if test="${order.status eq 'Shipped' && order.status ne 'canceled' }">
+                        <c:if test="${order.status eq 'Shipped' }">
                             <form action="qlorder" method="get">
                                 <input type="hidden" name="action" value="changeStatus" />
                                 <input type="hidden" name="order_id" value="${order.order_id}" />
                                 <select name="newStatus">
-                                    
-                                    
-                                    
+
                                     <option value="Delivered">Delivered</option>
-                                    
+
                                 </select>
                                 <input type="submit" value="Save" />
                             </form>
 
                         </c:if>
-                        
+
 
 
                     </td>
@@ -72,6 +68,10 @@
                         <a href="qlorder?action=showItem&order_id=${order.order_id}">View Details</a>
                         <%-- Check if the user has the permission to change order status --%>
                     </td>
+                    <td><c:if test="${order.order_id eq error_order_id }">
+
+                            <p style="color: red">${error}</p>
+                        </c:if></td>
                 </tr>
             </c:forEach>
         </table>

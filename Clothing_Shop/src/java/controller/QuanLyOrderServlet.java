@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller;
 
 import dal.CartDAO;
@@ -28,20 +27,17 @@ import model.User;
  *
  * @author ducmanh
  */
-@WebServlet(name="QuanLyOrderServlet", urlPatterns={"/qlorder"})
+@WebServlet(name = "QuanLyOrderServlet", urlPatterns = {"/qlorder"})
 public class QuanLyOrderServlet extends HttpServlet {
-   
-
-
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
         OrderDAO odb = new OrderDAO();
         ProductDAO pdb = new ProductDAO();
-        if (session.getAttribute("account") == null ) {
+        if (session.getAttribute("account") == null) {
             request.setAttribute("error", "Ban Can dang nhap");
             request.getRequestDispatcher("/view/nguoidung/GDLogin.jsp").forward(request, response);
         } else {
@@ -66,35 +62,51 @@ public class QuanLyOrderServlet extends HttpServlet {
                 if (action.equals("changeStatus")) {
                     String order_id = request.getParameter("order_id");
                     String newStatus = request.getParameter("newStatus");
-                    odb.updateStatusOrder(order_id, newStatus);
+
                     //get list order items
                     List<OrderItem> listOrderItem = odb.getOrderItemByOrderId(order_id);
-                    //giam stock cua product 
-                    for(OrderItem o : listOrderItem){
-                        int decrease = o.getProduct().getStock_quantity() - o.getQuantity();
-                        pdb.updateStock(o.getProduct().getProduct_id(),decrease);
-                    }
-                    
-                    
-                    response.sendRedirect("qlorder?action=showAll");
-                }
+                    if (newStatus.equals("Shipped")) {
+                        int flag = 1; // trang thai ok
 
+                        //giam stock cua product 
+                        for (OrderItem o : listOrderItem) {
+                            int decrease = o.getProduct().getStock_quantity() - o.getQuantity();
+
+                            if (decrease < 0) {//neu stock không đủ cho đơn hàng
+                                List<Order> listorder = odb.getAllOrder();
+                                request.setAttribute("orders", listorder);
+                                request.setAttribute("error_order_id", order_id);
+                                request.setAttribute("error", "Số lượng sản phẩm vượt quá kho");
+                                request.getRequestDispatcher("/view/admin/GDQuanLyDonHang.jsp").forward(request, response);
+                            } else {
+                                odb.updateStatusOrder(order_id, newStatus);
+                                pdb.updateStock(o.getProduct().getProduct_id(), decrease);
+                            }
+                        }
+                    }
+                    else{
+                        odb.updateStatusOrder(order_id, newStatus);
+                        response.sendRedirect("qlorder?action=showAll");
+                    }
+
+                    
+                }
 
             } catch (NullPointerException e) {
                 request.getRequestDispatcher("/view/components/Error404.jsp").forward(request, response);
             }
         }
-    } 
+    }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
 
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
