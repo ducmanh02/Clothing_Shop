@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -21,7 +22,6 @@ import model.User;
  */
 @WebServlet(name = "QuanLyUserServlet", urlPatterns = {"/qluser"})
 public class QuanLyUserServlet extends HttpServlet {
-
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -78,7 +78,6 @@ public class QuanLyUserServlet extends HttpServlet {
                 usb.updateUser(userId, newUsername, newPassword, newEmail, newFullName, newAddress, newPhone, newAdmin);
                 response.sendRedirect("qluser");
 
-                
             }
             if (action.equalsIgnoreCase("add")) {
                 String username = request.getParameter("username");
@@ -89,14 +88,25 @@ public class QuanLyUserServlet extends HttpServlet {
                 String phone = request.getParameter("phone");
                 int is_admin = Integer.parseInt(request.getParameter("is_admin"));
 
-                usb.createUser2(username, password, email, full_name, address, phone, is_admin);
+                if (usb.checkUser(username) == null) {
+                    // tao user moi
+                    // bam pass word bang BCrypt
 
-                response.sendRedirect("qluser");
+                    String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
+                    usb.createUser2(username, hashedPassword, email, full_name, address, phone, is_admin);
+
+                    response.sendRedirect("qluser");
+
+                } else {
+                    request.setAttribute("error", "user exists");
+                    request.getRequestDispatcher("view/admin/GDThemUser.jsp").forward(request, response);
+                }
+
             }
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
 
-           request.getRequestDispatcher("/view/components/Error404.jsp").forward(request, response);
+            request.getRequestDispatcher("/view/components/Error404.jsp").forward(request, response);
         }
     }
 

@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value="/asset/css/gdsp.css" />" type="text/css" rel="stylesheet">
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,16 +27,22 @@
     </style>
     <body>
         <div class="container">
-            <h1>Trang Quan Ly San Pham</h1>
-            <h3><a href="qlsp?action=add">Thêm Sản Phẩm</a></h3>
-            <h3><a href="admin">Back</a></h3>
-            <h3>Tim Kiem san pham</h3>
-            <form action="qlsp?action=search" method="post">
-                <input type="text" name="tuKhoa" placeholder="Nhap tu khoa">
-                <input type="submit" value="Search">
-            </form>
+            <h1>Trang Trang Quản Lý Sản Phẩm</h1>
+            
+            <div class="button">
+                <a href="admin">Trang chủ</a>
+                <a href="qlsp?action=add">Thêm Sản Phẩm</a>            
+            </div>
+            
+            <div class="timkiem">
+                <h3>Tìm kiếm sản phẩm</h3>
+                <form action="qlsp?action=search" method="post">
+                    <input type="text" name="tuKhoa" placeholder="Nhap tu khoa">
+                    <input type="submit" value="Search">
+                </form>
+            </div>
             <br>
-            <table border="1px">
+            <table ">
                 <tr>
                     <th>ID</th><!-- comment -->
                     <th>Name</th><!-- comment -->

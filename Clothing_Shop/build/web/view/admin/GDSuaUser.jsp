@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value="/asset/css/gdupdate.css" />" type="text/css" rel="stylesheet"><!-- comment -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,15 +15,14 @@
     </head>
     <body>
         <c:set var="user" value="${requestScope.user}" />
-        <h1>Cap Nhat Thong Tin User</h1>
-        <a href="qluser">Back</a>
+        <h1>Trang Cập nhật User</h1>
+ 
         <!-- Biểu mẫu cập nhật thông tin người dùng -->
         <form action="qluser?action=update" method="post">
             <input type="hidden" name="userId" value="${user.getUser_id()}">
             <label>New Username: </label> <br>
-            <input type="text" name="newUsername" value="${user.getUsername()}"><br>
-            <label>New Password: </label> <br>
-            <input type="text" name="newpassword" value="${user.getPassword()}"><br>
+            <input type="text" name="newUsername" value="${user.getUsername()}" readonly><br>
+            <input type="hidden" name="newpassword" value="${user.getPassword()}" ><br>
 
             <label>New Email:</label><br>
             <input type="text" name="newEmail" value="${user.getEmail()}"> <br>
@@ -35,6 +35,7 @@
             <label>New Admin: </label> <br>
             <input type="text" name="newadmin" value="${user.getIs_admin()}"><br>
             <input type="submit" value="Update">
+            <a href="qluser">Back</a>
         </form>
     </body>
 </html>

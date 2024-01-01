@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value="/asset/css/gdgiohang.css" />" type="text/css" rel="stylesheet">
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,18 +24,25 @@
             padding-top: 15vh;
 
         }
+
+
+
+
     </style>
 
     <body>
         <jsp:include page="../components/Header.jsp" ></jsp:include>
 
             <div class="container">
-                <h1>Trang Giỏ Hàng</h1>
-
-                <h4>${requestScope.error}</h3>
-                <h3>Giỏ Hàng</h3>
-
-                <table border="1px">
+                <div class="head">
+                    <h1>Trang Giỏ Hàng</h1>
+                    <h4>${requestScope.error}</h3>
+                    <h3>Giỏ Hàng</h3>
+                </div>
+                
+                <div class="mid">
+                    <a href="admin">Trang chủ</a>
+                <table>
                     <tr>
                         <th>Cart Item id</th>
                         <th>Product</th>
@@ -69,8 +77,17 @@
                     </c:forEach>
 
                 </table>
-                <h4 style="margin: 20px 0">Tổng tiền : ${requestScope.totalPrice}</h4>
-                <a href="dathang?action=order">Đặt Hàng</a>
+                                        
+                </div>
+                    <div class="last">
+                        <h4 style="margin: 20px 0">Tổng tiền : ${requestScope.totalPrice}</h4>
+                        <a href="dathang?action=order">Đặt Hàng</a>
+                    </div>
+                
+                
         </div>
+                    
+
     </body>
+    
 </html>

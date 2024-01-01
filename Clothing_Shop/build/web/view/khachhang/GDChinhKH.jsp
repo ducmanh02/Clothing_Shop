@@ -11,6 +11,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="<c:url value="/asset/css/style.css" />" type="text/css" rel="stylesheet">
+        <link href="<c:url value="/asset/css/gdchinh.css" />" type="text/css" rel="stylesheet">
         <!--        <link href="../../asset/css/style.css" type="text/css" rel="stylesheet">-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
               integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -20,77 +21,113 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
         <link rel="icon" type="image/x-icon" href="./asset/favicon/icons8-shop-color-96.png">
         <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        
+          <style>
+body {
+   background: linear-gradient(to bottom, pink, #f2f2f2);
+
+}
+  </style>
     </head>
     <style>
         .container {
             padding-top: 15vh;
-
         }
     </style>
     <body>
         <jsp:include page="../components/Header.jsp" ></jsp:include>
-            <div class="container">
-                <h1>GD Chinh Khách Hàng</h1>
-                <h3>Brand</h3>
-                <table border="1px">
-                    <tr>
-                        <th>ID</th>
-                        <th>Brand Name</th>
-                    </tr>
-                <c:forEach var="b" items="${requestScope.listBrand}" >
-                    <tr>
-                        <td>${b.brand_id}</td>
-                        <td><a href="chinhsp?action=filter&&brand_id=${b.brand_id}">${b.brand_name}</a></td>
-                    </tr>
-                </c:forEach>
-            </table>
-            <h3>Category</h3>
-            <table border="1px">
-                <tr>
-                    <th>ID</th>
-                    <th>Category Name</th>
-                </tr>
-                <c:forEach var="b" items="${requestScope.listCategory}" >
-                    <tr>
-                        <td>${b.category_id}</td>
-                        <td><a href="chinhsp?action=filter&&category_id=${b.category_id}">${b.category_name}</a></td>
-                    </tr>
-                </c:forEach>
-            </table>
-            <h3>Tim Kiem san pham</h3>
+    <div class="container">
+        <div class="timkiem">
             <form action="chinhsp?action=search" method="post">
                 <input type="text" name="tuKhoa" placeholder="Nhap tu khoa">
                 <input type="submit" value="Search">
             </form>
-
-            <h3>Products</h3>
-            <table border="1px ">
-                <tr>
-                    <th>ID</th><!-- comment -->
-                    <th>Name</th><!-- comment -->
-                    <th>Description</th>
-                    <th>Price</th> 
-                    <th>Stock quantity</th>  
-                    <th>Brand </th>  
-                    <th>category</th>  
-                    <th>size</th>
-                    <th>Image</th>
-                    <th>Action</th>
-                </tr>
-
-
-                <c:forEach items="${requestScope.listProduct}" var="c">
+        </div>
+        <div class ="under">
+            <div class="left">
+                <div class="brand">
+                    <table>
                     <tr>
-                        <td>${c.product_id}</td><!-- comment -->
-                        <td>${c.product_name}</td><!-- comment -->
-                        <td>${c.description}</td>
-                        <td>${c.price}</td> 
-                        <td>${c.stock_quantity}</td>  
-                        <td>${c.brand.brand_name} </td>  
-                        <td>${c.category.category_name}</td>  
-                        <td>${c.size}</td>
-                        <td><img style="width:200px"  src="${c.image_url}" alt="${c.product_name}"></td>
-                        <td><form id="addToCartForm_${c.product_id}" action="giohang?action=add&&product_id=${c.product_id}" method="post" >
+                        <th>Brand Name</th>
+                    </tr>
+                    <c:forEach var="b" items="${requestScope.listBrand}" >
+                        <tr>
+                            <td><a href="chinhsp?action=filter&&brand_id=${b.brand_id}">${b.brand_name}</a></td>
+                        </tr>
+                    </c:forEach>
+                    </table>
+                </div>
+                <div class="brand">
+                    <table>
+                    <tr>
+                        <th>Category</th>
+                    </tr>
+                    <c:forEach var="b" items="${requestScope.listCategory}" >
+                        <tr>
+                            <td><a href="chinhsp?action=filter&&category_id=${b.category_id}">${b.category_name}</a></td>
+                        </tr>
+                    </c:forEach>
+                    </table>
+                </div>
+            </div>
+                
+                        
+            <div class="right">
+                    <div class="top">
+                            <c:forEach items="${requestScope.listProduct}" var="c">
+                            <div class="single-product">
+                                    <div class="product-image">
+                                        <img style="width:200px"  src="${c.image_url}" alt="${c.product_name}">
+                                    </div>
+                                    <div class="name">
+                                        <h3><a href="chitietsp?product_id=${c.product_id}" >${c.product_name}</a></h3>
+                                    </div>
+                                   
+                                    <div class="price">
+                                        <span>${c.price}$</span>
+                                    </div>
+                                    
+                                    <div class="action">
+                                        <form id="addToCartForm_${c.product_id}" action="giohang?action=add&&product_id=${c.product_id}" method="post" >
+
+                                        <!-- Báo lỗi nếu số lượng vượt quá kho -->
+                                        <c:if test="${c.stock_quantity lt 1}">
+                                            <p style="color: red; margin-top: 10px;">Hết hàng</p>
+                                        </c:if>
+                                        <c:if test="${c.stock_quantity ge 1}">
+                                            <div class="hang">
+                                                <span>Số hàng: ${c.stock_quantity}</span>
+                                            </div>
+                                            <input type="number" name="quantity" required min="1" max="${c.stock_quantity}" onclick="addToCart(${c.product_id})" / >
+                                            <input type="submit" value="Add Cart"  />
+                                        </c:if>
+
+                                       </form>
+                                    </div>
+                            </div>
+                            </c:forEach>
+                    </div>
+
+                    <hr><!-- comment -->
+                    <h3>Products Sort By bán chạy</h3>
+                    <div class="last">
+                        <c:forEach items="${requestScope.listProductTK}" var="c" begin="0" end="3">
+                    <div class="single-product">
+
+                            <div class="product-image">
+                                <img style="width:200px"  src="${c.image_url}" alt="${c.product_name}">
+                            </div>
+                            <div class="name">
+                                <h3><a href="chitietsp?product_id=${c.product_id}" >${c.product_name}</a></h3>
+                            </div>
+                            <div class="price">
+                                <span>${c.price}$</span>
+                            </div>
+                            <div class="sold">
+                                <h4>Đã bán: ${c.total_sold}</h4>
+                            </div>
+                            <div class="action">
+                                <form id="addToCartForm_${c.product_id}" action="giohang?action=add&&product_id=${c.product_id}" method="post" >
 
                                 <!-- Báo lỗi nếu số lượng vượt quá kho -->
                                 <c:if test="${c.stock_quantity lt 1}">
@@ -98,62 +135,20 @@
                                 </c:if>
                                 <c:if test="${c.stock_quantity ge 1}">
                                     <input type="number" name="quantity" required min="1" max="${c.stock_quantity}" onclick="addToCart(${c.product_id})" / >
-                                    <input type="submit" value="Them vao gio hang"  />
+                                    <input type="submit" value="Add Cart"  />
                                 </c:if>
 
-                            </form> &nbsp; &nbsp; &nbsp; 
-                            <p style="color: red" id="error_${c.product_id}"></p>
-                            <a href="chitietsp?product_id=${c.product_id}" > Chi tiết sản phẩm</a>
-                        </td>
-                    </tr>
-                </c:forEach>
+                               </form>
+                            </div>
 
-            </table>
+                    </div>
+                          </c:forEach>
+            </div>
 
-
-            <hr><!-- comment -->
-            <h3>Products Sort By bán chạy</h3>
-            <table border="1px" >
-                <tr>
-                    <th>ID</th><!-- comment -->
-                    <th>Name</th><!-- comment -->
-                    <th>Description</th>
-                    <th>Price</th> 
-                    <th>Stock quantity</th>  
-                    <th>Brand </th>  
-                    <th>category</th>  
-                    <th>size</th>
-                    <th>Image</th>
-                    <th>ToTal Sold</th>
-                    <th>Action</th>
-                </tr>
-
-
-                <c:forEach items="${requestScope.listProductTK}" var="c">
-                    <tr>
-                        <td>${c.product_id}</td><!-- comment -->
-                        <td>${c.product_name}</td><!-- comment -->
-                        <td>${c.description}</td>
-                        <td>${c.price}</td> 
-                        <td>${c.stock_quantity}</td>  
-                        <td>${c.brand.brand_name} </td>  
-                        <td>${c.category.category_name}</td>  
-                        <td>${c.size}</td>
-                        <td><img style="width:200px"  src="${c.image_url}" alt="${c.product_name}"></td>
-                        <td>${c.total_sold}
-                        </td>
-                        <td><form action="giohang?action=add&&product_id=${c.product_id}" method="post" >
-                                <input type="number" name="quantity" required="Nhap so luong" />
-                                <input type="submit" value="Them vao gio hang" />
-                            </form> &nbsp; &nbsp; &nbsp; 
-                            <a href="chitietsp?product_id=${c.product_id}" > Chi tiết sản phẩm</a>
-                        </td>
-                    </tr>
-                </c:forEach>
-
-            </table>
-        </div>
-
+            </div>
+        </div>     
+    </div>
+        <jsp:include page="../components/Footer.jsp"/>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
                 integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"

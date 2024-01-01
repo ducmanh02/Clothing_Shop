@@ -6,6 +6,8 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<link href="<c:url value="/asset/css/gdquanlyadmin.css" />" type="text/css" rel="stylesheet">
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +15,9 @@
     <title>Order Detail</title>
 </head>
 <body>
-    <h1>Chi Tiet Don Hang</h1>
-    <a href="qlorder?action=showAll">Back</a>
+    <h1>Chi Tiết Đơn hàng</h1>
+    <div class="container">
+        <a href="admin">Trang chủ</a>
     <table border="1">
         <tr>
             <th>Order Item ID</th>
@@ -38,5 +41,6 @@
             </tr>
         </c:forEach>
     </table>
+    </div>
 </body>
 </html>

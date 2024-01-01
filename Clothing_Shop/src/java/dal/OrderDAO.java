@@ -10,9 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import model.Order;
 import model.OrderItem;
+import model.Product;
 import model.User;
 
 /**
@@ -20,8 +23,8 @@ import model.User;
  * @author ducmanh
  */
 public class OrderDAO extends DAO {
-    
-    public Order getOrderByOrderId(String order_id){
+
+    public Order getOrderByOrderId(String order_id) {
         String sql = "select * from orders where order_id =?";
         UserDAO udb = new UserDAO();
         try {
@@ -30,7 +33,7 @@ public class OrderDAO extends DAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 String user_id = rs.getString(2);
-                
+
                 Order o = new Order(rs.getString(1), udb.getUserById(user_id), rs.getBigDecimal(3), rs.getTimestamp(4), rs.getString(5));
                 return o;
             }
@@ -39,7 +42,7 @@ public class OrderDAO extends DAO {
         }
         return null;
     }
-    
+
     public List<Order> getAllOrder() {
         List<Order> list = new ArrayList<>();
         UserDAO udb = new UserDAO();
@@ -77,7 +80,7 @@ public class OrderDAO extends DAO {
         }
         return list;
     }
-    
+
     public List<OrderItem> getOrderItemByOrderId(String order_id) {
         OrderDAO odb = new OrderDAO();
         List<OrderItem> list = new ArrayList<>();
@@ -90,7 +93,7 @@ public class OrderDAO extends DAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
 
-                OrderItem o = new OrderItem(rs.getString(1), odb.getOrderByOrderId(rs.getString(2)),pdb.getProductByID(rs.getString(3)) , rs.getInt(4), rs.getBigDecimal(5));
+                OrderItem o = new OrderItem(rs.getString(1), odb.getOrderByOrderId(rs.getString(2)), pdb.getProductByID(rs.getString(3)), rs.getInt(4), rs.getBigDecimal(5));
                 list.add(o);
             }
         } catch (SQLException e) {
@@ -170,8 +173,31 @@ public class OrderDAO extends DAO {
         }
     }
 
+    // thong ke doanh thu theo san pham
+    public Map<Product, BigDecimal> getTKDoanhThuTheoSP() {
+        Map<Product, BigDecimal> productTotals = new HashMap<Product, BigDecimal>();
+        ProductDAO pdb = new ProductDAO();
+        String sql = "SELECT    product_id,    SUM(total_price) AS total_price FROM    Order_Items GROUP BY    product_id ORDER BY\n" +
+        "    total_price DESC ;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                
+                String productId = rs.getString(1);
+                Product p = pdb.getProductByID(productId);
+                BigDecimal totalPrice = rs.getBigDecimal(2);
+                productTotals.put(p, totalPrice);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return productTotals;
+    }
+
     public static void main(String[] args) {
         OrderDAO odb = new OrderDAO();
-        System.out.println(odb.getOrderItemByOrderId("ORD02"));
+        System.out.println(odb.getTKDoanhThuTheoSP());
     }
 }

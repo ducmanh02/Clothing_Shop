@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value="/asset/css/gdupdate.css" />" type="text/css" rel="stylesheet"><!-- comment -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +14,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Trang Sửa Sản Phẩm</h1>
+        <h1>Trang Cập nhật Sản Phẩm</h1>
 
         <form action="qlsp?action=update&&product_id=${product.product_id}" method="post"  enctype="multipart/form-data" >
 
@@ -82,6 +83,7 @@
 
 
             <input type="submit" value="Update" />
+            <a href="qlsp">Back</a>
         </form>
     </body>
 </html>

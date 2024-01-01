@@ -54,15 +54,20 @@
   gap: 20px;
 }
 .header .button .user .item{
-  border: 2px solid #ca1515;
+  display:flex;
+  justify-content: center;
+  align-content: center;
+  padding: 5px;
+ 
+}
+.header .button .user .item .logout{
+  display:flex;
+  margin-top: 20px;
   padding: 5px;
 }
-.header .button .user .item:hover{
-  background-color: #ca1515;
 
-}
 .header .button .user .item a:hover{
-  color: #fff
+  color: #ca1515
 }
 .header .button .user .item a{
   text-decoration: none;
@@ -73,8 +78,13 @@
   color: black;
 
 }
+.header .button .dropdown{
+    margin-bottom: 10px;
+}
 
-
+.header .button .dropdown .dropbtn{
+    margin-bottom: 20px;
+}
 
 
 .main {

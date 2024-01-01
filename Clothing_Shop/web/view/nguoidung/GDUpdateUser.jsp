@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value="/asset/css/gdupdate.css" />" type="text/css" rel="stylesheet"><!-- comment -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +17,7 @@
         <h1>Giao Diện thông tin người dùng</h1>
 
         <c:set var="user" value="${requestScope.user}" />
-        <a href="chinhsp">Back</a>
+       
         <!-- Biểu mẫu cập nhật thông tin người dùng -->
         <form action="user?action=update" method="post">
             <input type="hidden" name="userId" value="${user.getUser_id()}">
@@ -33,9 +34,8 @@
             <input type="text" name="newadress" value="${user.getAddress()}"><br>
             <label>New Phone: </label> <br>
             <input type="text" name="newphone" value="${user.getPhone()}"><br>
-            <label>New Admin: </label> <br>
-            <input type="text" name="newadmin" value="${user.getIs_admin()}"><br>
             <input type="submit" value="Update">
+            <a href="chinhsp">Back</a>
         </form>
     </body>
 </html>

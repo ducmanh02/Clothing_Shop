@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value="/asset/css/thanhcong.css" />" type="text/css" rel="stylesheet"><!-- comment -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,10 +28,11 @@
     <body>
         <jsp:include page="../components/Header.jsp" ></jsp:include>
         <div class="container">
-            <h4>Đặt Hàng Thành Công</h4>
-            <a href="dathang?action=showAll">Danh sách đơn hàng</a>
-            <a href="/Clothing_Shop/home">Tiếp tục mua sắm</a>
+            <div class="success">
+            <h4 style="font-family: arial">Đặt Hàng Thành Công</h4>
+            <a href="dathang?action=showAll" style="font-family: arial">Danh sách đơn hàng</a>
+            <a href="/Clothing_Shop/home" style="font-family: arial">Tiếp tục mua sắm</a>
+            </div>
         </div> 
-
     </body>
 </html>

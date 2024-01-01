@@ -11,6 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="<c:url value="/asset/css/style.css" />" type="text/css" rel="stylesheet">
+        <link href="<c:url value="/asset/css/gdchinhadmin.css" />" type="text/css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
               integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
               crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -21,24 +22,31 @@
     </head>
     <style>
         .container {
-            padding-top: 15vh;
+            padding: 20px;
 
         }
     </style>
     <body>
-        <div class="container">
+        <div class="head">
             <h1>Trang Admin!</h1>
             <h3>Hello, ${sessionScope.account.username}</h3>
-            <h3>Thong ke san pham ban chay se o day</h3>
+           
             
             <br>
             <hr><!-- comment -->
-            <h3><a href="qluser">Quan Ly User</a></h3>
-            <h3><a href="qlcategory">Quan Ly Category</a></h3>
-            <h3><a href="qlbrand">Quan ly Brand</a></h3>
-            <h3><a href="qlsp" >Quan ly san pham</a></h3>
-            <h3><a href="qlorder?action=showAll">Quan ly Don Hang</h3>
-            <h3><a href="qlfeedback?action=showAll">Quan ly FeedBack</h3>
+          
+        </div>
+        
+        <div class="container">
+         
+            <div class="box">
+                <h3><a href="qluser">Quản Lý User</a></h3>
+                <h3><a href="qlcategory">Quản Lý Category</a></h3>
+                <h3><a href="qlbrand">Quản Lý Brand</a></h3>
+                <h3><a href="qlsp" >Quản Lý Sản phẩm</a></h3>
+                <h3><a href="qlorder?action=showAll">Quản Lý Đơn hàng</h3>
+                <h3><a href="qlfeedback?action=showAll">Quản Lý FeedBack</h3>
+            </div>
         </div>
 
     </body>

@@ -36,7 +36,7 @@ public class DatHangServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
         OrderDAO odb = new OrderDAO();
-
+        UserDAO udb = new UserDAO();
         if (session.getAttribute("account") == null) {
             request.setAttribute("error", "Ban Can dang nhap");
             request.getRequestDispatcher("/view/nguoidung/GDLogin.jsp").forward(request, response);
@@ -70,7 +70,9 @@ public class DatHangServlet extends HttpServlet {
 
                 }
                 if (action.equals("order")) {
-
+                    User user = udb.checkUser(u.getUsername());
+                    
+                    
                     CartDAO cartdb = new CartDAO();
                     Cart cart = cartdb.getCartByUserId(user_id);
                     List<CartItem> listCartItem = cartdb.getAllItemInCart(cart.getCart_id()); // list san pham kem so luong va tong tien

@@ -20,10 +20,53 @@
         <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
         <title>Shop Clothing</title>
     </head>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        margin-top: 100px;
+    }
+
+    .banner {
+        margin: 10px;
+        
+    }
+
+    .banner img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+</style>
     <body>
 
         <jsp:include page="../components/Header.jsp" ></jsp:include>
-            
+        <div class="container">
+            <div class="banner">
+                    <img src="asset/img_product/banner.jpg" alt="banner img">
+            </div>
+            <div class="banner">
+                    <img src="asset/img_product/banner-thoi-trang-con-nit.jpg" alt="banner img"/>
+            </div>
+            <div class="banner">
+                    <img src="asset/img_product/banner-thoi-trang-men.jpg" alt="banner img"/>
+            </div>
+            <div class="banner">
+                <img src="asset/img_product/banner-thoi-trang-nam-dep.jpg" alt="banner img"/>
+            </div>
+        </div>
+                <jsp:include page="../components/Footer.jsp"/>
+
         </body>
     </html>

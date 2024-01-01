@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value="/asset/css/dsdonhang.css" />" type="text/css" rel="stylesheet">
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,9 +15,10 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Danh Sach Don Hang</h1>
+        <div class="container">
+              <h1>Danh sách đơn hàng</h1>
         <a href="chinhsp">Back</a>
-        <table border="1">
+        <table>
         <tr>
             <th>Order ID</th>
             <th>User ID</th>
@@ -48,5 +51,7 @@
             </tr>
         </c:forEach>
         </table>
+        </div>
+      
     </body>
 </html>

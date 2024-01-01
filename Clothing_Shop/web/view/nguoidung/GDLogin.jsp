@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value="/asset/css/login.css" />" type="text/css" rel="stylesheet"><!-- comment -->
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,8 +16,7 @@
     </head>
     <body>
         <h1>Trang Login</h1>
-        
-        <h3>Login Form</h3>
+
         <form action="user?action=login" method="post">
             <label>Username: </label> <br>
             <input type="text" name="username"><br>
@@ -24,6 +25,6 @@
             <input type="submit" value="Login">
         </form>
         <h3 style="color: red">${requestScope.error}</h3>
-        <a href="user?action=signup">Tao Tai Khoan</a>
+        <a href="user?action=signup">Tạo Tài khoản</a>
     </body>
 </html>

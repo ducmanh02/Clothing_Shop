@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value="/asset/css/gdupdate.css" />" type="text/css" rel="stylesheet"><!-- comment -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,6 +39,8 @@
             <input type="number" id="is_admin" name="is_admin" value="0" required><br>
 
             <input type="submit" value="Add User">
+            <p style="color: red">${error}</p>
+            <a href="qluser">Back</a>
         </form>
     </body>
 </html>

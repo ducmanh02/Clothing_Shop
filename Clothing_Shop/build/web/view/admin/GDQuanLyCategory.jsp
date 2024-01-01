@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value="/asset/css/gdquanlyadmin.css" />" type="text/css" rel="stylesheet">
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,9 +14,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Quan Ly Category</h1>
-        <a href="admin">Back</a>
-        <a href="qlcategory?action=add">Them Category</a>
+        <h1>Quản Lý Category</h1>
+        <h2>Danh sách Category</h2>
+        <div class="container">
+        <a href="admin">Trang chủ</a>
+        <a href="qlcategory?action=add">Thêm Category</a>
         <table border="1px">
             <tr>
                 <th>ID</th>
@@ -32,5 +35,6 @@
                 </tr>
             </c:forEach>
         </table>
+        </div>
     </body>
 </html>

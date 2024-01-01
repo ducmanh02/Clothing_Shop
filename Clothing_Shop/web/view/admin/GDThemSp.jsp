@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<link href="<c:url value="/asset/css/gdupdate.css" />" type="text/css" rel="stylesheet"><!-- comment --><!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,7 +19,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Trang Them San Pham</h1>
+        <h1>Trang Thêm Sản Phẩm</h1>
         <form action="qlsp?action=add" method="post" enctype="multipart/form-data"  >
             <label>Product Name</label> <br>
             <input type="text" name="product_name" charset="UTF-8" required /><br>
@@ -63,7 +63,8 @@
             <label>Image</label><br>
             <input type="file" name="image_url"  /><br>
             <br>
-            <input type="submit" value="Them" />
+            <input type="submit" value="Thêm" />
+            <a href="qlsp">Back</a>
         </form>
     </body>
 </html>

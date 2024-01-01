@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value="/asset/css/gddathang.css" />" type="text/css" rel="stylesheet"><!-- comment -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,43 +28,59 @@
     <body>
         <jsp:include page="../components/Header.jsp" ></jsp:include>
             <div class="container">
-                <h1>Trang Đặt Hàng</h1>
-            <c:set var="u" value="${sessionScope.account}" />
+                <a href="giohang">Back</a>
+            <div class="head">
+                
+                <c:set var="u" value="${user}" />
                 <form action="dathang" method="post">
                     <h3>Thông tin người đặt</h3>
-                    <label>Full Name:</label>
-                    <input type="text" name="full_name" value="${u.getFull_name()}" required> 
-                    <label>Address:</label>
-                    <input type="text" name="address" value="${u.getAddress()}" required> 
-                    <label>Phone Number:</label> 
-                    <input type="text" name="phone" value="${u.getPhone()}" required> 
+                    <table>
+                        <tr>
+                            <td><label>Full Name:</label></td>
+                            <td><input type="text" name="full_name" value="${u.getFull_name()}" required> </td>
+                        </tr>
+                        <tr>
+                            <td><label>Address:</label></td>
+                            <td><input type="text" name="address" value="${u.getAddress()}" required>  </td>
+                        </tr>
+                        <tr>
+                            <td><label>Phone Number:</label> </td>
+                            <td><input type="text" name="phone" value="${u.getPhone()}" required>  </td>
+                        </tr>
+                    </table>
                     <input type="submit" value="Xác Nhận Đặt Hàng">
                 </form>
 
-                <h3>Thông tin Đơn Hàng Đặt</h3>
-                <h4>Danh sách Sản Phẩm</h4>
-                <table border="1px">
-                    <tr>
-                        <th>Cart Item id</th>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Total Price</th>
-                        
-                    </tr>
-                    <c:forEach var="b" items="${requestScope.listCartItem}"  >
-                        <tr>
-                            <td>${b.cart_item_id}</td>
-                            <td>${b.product.product_id}</td>
-                            <td>${b.quantity}</td>
-                            <td>${b.total_price}</td>
-                            
-                        </tr>
-                    </c:forEach>
+            </div>
+                    <div class="mid">
+                        <h3>Thông tin Đơn Hàng Đặt</h3>
+                        <h4>Danh sách Sản Phẩm</h4>
+                        <table >
+                            <tr>
+                                <th>Cart Item id</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Total Price</th>
 
-                </table>
-                <h4 style="margin: 20px 0">Tổng tiền : ${requestScope.totalPrice}</h4>
+                            </tr>
+                            <c:forEach var="b" items="${requestScope.listCartItem}"  >
+                                <tr>
+                                    <td>${b.cart_item_id}</td>
+                                    <td>${b.product.product_id}</td>
+                                    <td>${b.quantity}</td>
+                                    <td>${b.total_price}</td>
+
+                                </tr>
+                            </c:forEach>
+
+                        </table>
+                        <h4 style="margin: 20px 0">Tổng tiền : ${requestScope.totalPrice}</h4>
+                        
+                    </div>
+                
             </div>
 
-
+                
         </body>
+
     </html>

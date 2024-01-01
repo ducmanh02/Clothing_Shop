@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value="/asset/css/gdquanlyadmin.css" />" type="text/css" rel="stylesheet">
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,17 +20,19 @@
             }
         </script>
     </head>
-
     <body>
         <h1>Trang Quản Lý User</h1>
-        <a href="qluser?action=add">Create User</a>
         <h2>Danh sách người dùng</h2>
-        <table border="1">
+        <div class="container">
+            <a href="admin">Trang chủ</a>
+            <a href="qluser?action=add">Create User</a>
+        
+        <table>
             <thead>
                 <tr>
                     <th>User ID</th>
                     <th>Username</th>
-                    <th>Password</th>
+
                     <th>Email</th>
                     <th>Full Name</th>
                     <th>Address</th>
@@ -45,7 +48,7 @@
                     <tr>
                         <td>${user.user_id}</td>
                         <td>${user.username}</td>
-                        <td>${user.password}</td>
+
                         <td>${user.email}</td>
                         <td>${user.full_name}</td>
                         <td>${user.address}</td>
@@ -57,8 +60,10 @@
                         </td>
                     </tr>
                 </c:forEach>
-            <div><a href="admin">Trang chủ</a></div>
+            
         </tbody>
     </table>
+        </div>
+       
 </body>
 </html>

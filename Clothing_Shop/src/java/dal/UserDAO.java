@@ -211,7 +211,7 @@ public class UserDAO extends DAO {
     public void deleteUser(String username) {
         UserDAO udb = new UserDAO();
         User u = udb.checkUser(username);
-        
+
         String sql = "DELETE FROM `clothing_shop`.`users` where username= ?";
         String deleteCart = "DELETE FROM `clothing_shop`.`cart` where user_id= ?";
         try {
@@ -219,19 +219,38 @@ public class UserDAO extends DAO {
             PreparedStatement st1 = connection.prepareStatement(deleteCart);
             st1.setString(1, u.getUser_id());
             st1.execute();
-            
+
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
             st.execute();
-            
+
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
+    public String getPasswordStored(String username) {
+
+        String password = null;
+        String sql = "Select password from users where username = ?  ";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                password = rs.getString(1);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return password;
+    }
+
     public static void main(String[] args) {
         UserDAO usb = new UserDAO();
 //        usb.createUser("manh", "1");
-//        System.out.println(usb.checkUser("manh"));
+        System.out.println(usb.getPasswordStored("hash"));
     }
 }

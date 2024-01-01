@@ -1,0 +1,26 @@
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+.head{padding: 20px;}
+
+
+.box {padding: 10px}
+.box h3{
+    border: none;
+    background-color: #569096;
+    padding: 15px 20px; 
+    text-align: center;
+    font-size: 16px; 
+    
+}
+.box a{
+    color: white;
+    text-decoration: none;
+    font-family: arial;
+}
+.box h3:hover{
+    box-shadow: 10px 10px 5px #888;
+    transform: scale(105%);
+}

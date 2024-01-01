@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -91,22 +92,32 @@ public class UserServlet extends HttpServlet {
         UserDAO usb = new UserDAO();
         try {
             if (action.equalsIgnoreCase("login")) {
-                String username = request.getParameter("username");
-                String password = request.getParameter("password");
 
-                User u = usb.validateUser(username, password);
-                System.out.println(u);
-                if (u != null) {
-                    //co tim thay tai khoan, tao session
+                try {
+                    String username = request.getParameter("username");
+                    String password = request.getParameter("password");
 
-                    session.setAttribute("account", u);
-                    if (u.getIs_admin() == 1) {
-                        request.getRequestDispatcher("view/admin/GDChinhAdmin.jsp").forward(request, response);
+                    String storedPasswordHash = usb.getPasswordStored(username);
+
+                    if (storedPasswordHash != null && BCrypt.checkpw(password, storedPasswordHash)) {
+                        // Đăng nhập thành công
+                        // Tiếp tục xử lý hoặc chuyển hướng người dùng đến trang chính
+                        //co tim thay tai khoan, tao session
+                        User u = usb.checkUser(username);
+                        session.removeAttribute("account");
+                        session.setAttribute("account", u);
+                        if (u.getIs_admin() == 1) {
+                            response.sendRedirect("admin");
+                        } else {
+                            request.getRequestDispatcher("view/khachhang/GDHome.jsp").forward(request, response);
+                        }
                     } else {
-                        request.getRequestDispatcher("view/khachhang/GDHome.jsp").forward(request, response);
+                        // Đăng nhập thất bại
+                        // Hiển thị thông báo lỗi hoặc chuyển hướng người dùng đến trang đăng nhập lại
+                        request.setAttribute("error", "username or password invalid");
+                        request.getRequestDispatcher("view/nguoidung/GDLogin.jsp").forward(request, response);
                     }
-                }
-                if (u == null) {
+                } catch (IllegalArgumentException e) {
                     request.setAttribute("error", "username or password invalid");
                     request.getRequestDispatcher("view/nguoidung/GDLogin.jsp").forward(request, response);
                 }
@@ -123,7 +134,10 @@ public class UserServlet extends HttpServlet {
                 } else {
                     if (usb.checkUser(username) == null) {
                         // tao user moi
-                        usb.createUser(username, password);
+                        // bam pass word bang BCrypt
+
+                        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+                        usb.createUser(username, hashedPassword);
 
                         request.getRequestDispatcher("/view/nguoidung/GDLogin.jsp").forward(request, response);
 
@@ -144,9 +158,20 @@ public class UserServlet extends HttpServlet {
                 String newFullName = request.getParameter("newfullname");
                 String newAddress = request.getParameter("newadress");
                 String newPhone = request.getParameter("newphone");
-                int newAdmin = Integer.parseInt(request.getParameter("newadmin"));
-
-                usb.updateUser(userId, newUsername, newPassword, newEmail, newFullName, newAddress, newPhone, newAdmin);
+                int newAdmin = 0;
+                
+                session.removeAttribute("account");
+                User u = usb.checkUser(newUsername);
+                session.setAttribute("account", u);
+                if (newPassword.equals(usb.getPasswordStored(newUsername))) {
+                    usb.updateUser(userId, newUsername, newPassword, newEmail, newFullName, newAddress, newPhone, newAdmin);
+                }
+                else{
+                    String hashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+                    usb.updateUser(userId, newUsername, hashedPassword, newEmail, newFullName, newAddress, newPhone, newAdmin);
+                }
+               
+                
                 response.sendRedirect("chinhsp");
             }
 

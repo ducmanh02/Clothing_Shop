@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value="/asset/css/gdquanlyadmin.css" />" type="text/css" rel="stylesheet"><!-- comment -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,8 +15,9 @@
     </head>
     <body>
         <h1>Trang Quản Lý FeedBack</h1>
-        <a href="admin">Back</a>
-        <h3>Danh Sach FeedBack</h3>
+        <h2>Danh Sách FeedBack</h2>
+        <div class="container">
+        <a href="admin">Trang Chủ</a>
         <table border="1px">
             <tr>
                 <th>ID</th>
@@ -45,5 +47,6 @@
                 
             </c:forEach>
         </table>
+        </div>
     </body>
 </html>
