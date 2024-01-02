@@ -83,7 +83,7 @@ public class ChinhSpServlet extends HttpServlet {
             }
         } catch (NullPointerException e) {
 
-            if (action == null) {
+            
                 List<Product> listProduct = pdb.getAll();
                 request.setAttribute("listProduct", listProduct);
 
@@ -97,7 +97,7 @@ public class ChinhSpServlet extends HttpServlet {
                 request.setAttribute("listCategory", listCategory);
 
                 request.getRequestDispatcher("view/khachhang/GDChinhKH.jsp").forward(request, response);
-            }
+            
         }
     }
 

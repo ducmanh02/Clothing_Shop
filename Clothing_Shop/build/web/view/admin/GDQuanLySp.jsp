@@ -46,7 +46,7 @@
                 <tr>
                     <th>ID</th><!-- comment -->
                     <th>Name</th><!-- comment -->
-                    <th>Description</th>
+                    <th style="width: 350px">Description</th>
                     <th>Price</th> 
                     <th>Stock quantity</th>  
                     <th>Brand </th>  
