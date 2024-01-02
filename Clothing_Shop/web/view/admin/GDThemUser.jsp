@@ -24,16 +24,16 @@
             <input type="password" id="password" name="password"  required><br>
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br>
+            <input type="email" id="email" name="email" ><br>
 
             <label for="full_name">Full Name:</label>
-            <input type="text" id="full_name" name="full_name" required><br>
+            <input type="text" id="full_name" name="full_name" ><br>
 
             <label for="address">Address:</label>
-            <input type="text" id="address" name="address" required><br>
+            <input type="text" id="address" name="address" ><br>
 
             <label for="phone">Phone:</label>
-            <input type="text" id="phone" name="phone" required><br>
+            <input type="text" id="phone" name="phone" ><br>
 
             <label for="is_admin">Is Admin:</label>
             <input type="number" id="is_admin" name="is_admin" value="0" required><br>

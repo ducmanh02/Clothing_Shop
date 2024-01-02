@@ -67,12 +67,10 @@ public class DatHangServlet extends HttpServlet {
 
                     request.getRequestDispatcher("/view/khachhang/GDDSDonHang.jsp").forward(request, response);
 
-
                 }
                 if (action.equals("order")) {
                     User user = udb.checkUser(u.getUsername());
-                    
-                    
+
                     CartDAO cartdb = new CartDAO();
                     Cart cart = cartdb.getCartByUserId(user_id);
                     List<CartItem> listCartItem = cartdb.getAllItemInCart(cart.getCart_id()); // list san pham kem so luong va tong tien
@@ -86,7 +84,7 @@ public class DatHangServlet extends HttpServlet {
                             totalPrice = totalPrice.add(item);
 
                         }
-
+                        request.setAttribute("user", user);
                         request.setAttribute("totalPrice", totalPrice); // tong tien cua gio hang
                         request.setAttribute("listCartItem", listCartItem);
                         request.getRequestDispatcher("/view/khachhang/GDDatHang.jsp").forward(request, response);

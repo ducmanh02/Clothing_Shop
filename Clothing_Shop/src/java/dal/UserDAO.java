@@ -155,6 +155,9 @@ public class UserDAO extends DAO {
 
     //Tao user by Admin
     public void createUser2(String username, String password, String email, String full_name, String address, String phone, int is_admin) {
+
+        CartDAO cdb = new CartDAO();
+
         String sql = "INSERT INTO `clothing_shop`.`users`"
                 + "(`user_id`, `username`, `password`, `email`, `full_name`, `address`, `phone`, `is_admin`)"
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
@@ -168,18 +171,20 @@ public class UserDAO extends DAO {
                     maxId = rs.getInt(1);
                 }
                 String newUser_id = "USR" + String.format("%02d", maxId + 1);
+                
                 st.setString(1, newUser_id);
+                st.setString(2, username);
+                st.setString(3, password);
+                st.setString(4, email);
+                st.setString(5, full_name);
+                st.setString(6, address);
+                st.setString(7, phone);
+                st.setInt(8, is_admin);
+                st.execute();
+                cdb.creatCartForNewUser(newUser_id);
             }
 
-            st.setString(2, username);
-            st.setString(3, password);
-            st.setString(4, email);
-            st.setString(5, full_name);
-            st.setString(6, address);
-            st.setString(7, phone);
-            st.setInt(8, is_admin);
-
-            st.execute();
+            
         } catch (SQLException e) {
             System.out.println(e);
         }
