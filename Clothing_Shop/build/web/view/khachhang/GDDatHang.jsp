@@ -37,15 +37,15 @@
                     <table>
                         <tr>
                             <td><label>Full Name:</label></td>
-                            <td><input type="text" name="full_name" value="${u.getFull_name()}" required> </td>
+                            <td><input type="text" name="full_name" value="${u.getFull_name()}" readonly> </td>
                         </tr>
                         <tr>
                             <td><label>Address:</label></td>
-                            <td><input type="text" name="address" value="${u.getAddress()}" required>  </td>
+                            <td><input type="text" name="address" value="${u.getAddress()}" readonly>  </td>
                         </tr>
                         <tr>
                             <td><label>Phone Number:</label> </td>
-                            <td><input type="text" name="phone" value="${u.getPhone()}" required>  </td>
+                            <td><input type="text" name="phone" value="${u.getPhone()}" readonly>  </td>
                         </tr>
                     </table>
                     <input type="submit" value="Xác Nhận Đặt Hàng">

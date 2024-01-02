@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/ducma/OneDrive/Desktop/Ki_7/LapTrinhWeb/Project/Clothing_Shop/src/java/model/ProductTK.java</file>
             <file>file:/C:/Users/ducma/OneDrive/Desktop/Ki_7/LapTrinhWeb/Project/Clothing_Shop/src/java/model/Product.java</file>
+            <file>file:/C:/Users/ducma/OneDrive/Desktop/Ki_7/LapTrinhWeb/Project/Clothing_Shop/web/view/admin/GDChiTietDh.jsp</file>
             <file>file:/C:/Users/ducma/OneDrive/Desktop/Ki_7/LapTrinhWeb/Project/Clothing_Shop/src/java/dal/ProductDAO.java</file>
             <file>file:/C:/Users/ducma/OneDrive/Desktop/Ki_7/LapTrinhWeb/Project/Clothing_Shop/src/java/controller/QuanLyOrderServlet.java</file>
             <file>file:/C:/Users/ducma/OneDrive/Desktop/Ki_7/LapTrinhWeb/Project/Clothing_Shop/web/view/khachhang/GDChiTietSp.jsp</file>
@@ -26,6 +27,7 @@
             <file>file:/C:/Users/ducma/OneDrive/Desktop/Ki_7/LapTrinhWeb/Project/Clothing_Shop/src/java/controller/GioHangServlet.java</file>
             <file>file:/C:/Users/ducma/OneDrive/Desktop/Ki_7/LapTrinhWeb/Project/Clothing_Shop/web/view/admin/GDSuaSp.jsp</file>
             <file>file:/C:/Users/ducma/OneDrive/Desktop/Ki_7/LapTrinhWeb/Project/Clothing_Shop/web/view/admin/GDThemUser.jsp</file>
+            <file>file:/C:/Users/ducma/OneDrive/Desktop/Ki_7/LapTrinhWeb/Project/Clothing_Shop/web/view/khachhang/GDDatHang.jsp</file>
             <file>file:/C:/Users/ducma/OneDrive/Desktop/Ki_7/LapTrinhWeb/Project/Clothing_Shop/web/view/admin/GDQuanLyBrand.jsp</file>
             <file>file:/C:/Users/ducma/OneDrive/Desktop/Ki_7/LapTrinhWeb/Project/Clothing_Shop/src/java/controller/QuanLySpServlet.java</file>
             <file>file:/C:/Users/ducma/OneDrive/Desktop/Ki_7/LapTrinhWeb/Project/Clothing_Shop/web/view/khachhang/GDChinhKH.jsp</file>

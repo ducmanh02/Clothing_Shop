@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `clothing_shop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `clothing_shop`;
 -- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: clothing_shop
@@ -38,7 +36,6 @@ CREATE TABLE `brands` (
 
 LOCK TABLES `brands` WRITE;
 /*!40000 ALTER TABLE `brands` DISABLE KEYS */;
-INSERT INTO `brands` VALUES ('BR01','Brand 1'),('BR02','Brand 2'),('BR03','Brand 3');
 /*!40000 ALTER TABLE `brands` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +63,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES ('CRT01','USR01','2023-01-01 03:00:00','Active'),('CRT02','USR02','2023-01-02 04:30:00','Active'),('CRT03','USR03','2023-01-03 05:45:00','Active');
+INSERT INTO `cart` VALUES ('CRT01','USR01','2024-01-01 15:34:44','Active');
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +93,6 @@ CREATE TABLE `cart_items` (
 
 LOCK TABLES `cart_items` WRITE;
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
-INSERT INTO `cart_items` VALUES ('CRT_ITEM06','CRT03','PR01',6),('CRT_ITEM07','CRT02','PR01',1598),('CRT_ITEM08','CRT02','PR04',4),('CRT_ITEM09','CRT02','PR02',238),('CRT_ITEM10','CRT02','PR03',25);
 /*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +117,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES ('CA01','Category 1'),('CA02','Category 2'),('CA03','Category 3'),('CA04','test');
+INSERT INTO `categories` VALUES ('CA01','hoodie'),('CA02','Quần Jean'),('CA04','Sơ Mi'),('CA03','T-Shirt');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,7 +149,6 @@ CREATE TABLE `feedback` (
 
 LOCK TABLES `feedback` WRITE;
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
-INSERT INTO `feedback` VALUES ('FDB01','USR01','PR01',5,'Great product!','2023-01-07 11:00:00'),('FDB02','USR02','PR02',4,'Good quality.','2023-01-08 12:15:00'),('FDB03','USR03','PR03',3,'Could be better.','2023-01-09 13:30:00');
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,13 +161,13 @@ DROP TABLE IF EXISTS `order_items`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_items` (
   `order_item_id` varchar(50) NOT NULL,
-  `order_id` varchar(50) DEFAULT NULL,
-  `product_id` varchar(50) DEFAULT NULL,
-  `quantity` int DEFAULT NULL,
+  `order_id` varchar(50) NOT NULL,
+  `product_id` varchar(50) NOT NULL,
+  `quantity` int NOT NULL,
   `total_price` decimal(10,2) NOT NULL,
   PRIMARY KEY (`order_item_id`),
-  KEY `order_id` (`order_id`),
-  KEY `product_id` (`product_id`),
+  KEY `order_items_ibfk_1` (`order_id`),
+  KEY `order_items_ibfk_2` (`product_id`),
   CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
   CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -184,7 +179,6 @@ CREATE TABLE `order_items` (
 
 LOCK TABLES `order_items` WRITE;
 /*!40000 ALTER TABLE `order_items` DISABLE KEYS */;
-INSERT INTO `order_items` VALUES ('ORD_ITEM01','ORD01','PR01',1,19.99),('ORD_ITEM02','ORD01','PR02',1,29.99),('ORD_ITEM03','ORD02','PR03',1,9.99),('ORD_ITEM04','ORD04','PR03',4,159.96),('ORD_ITEM05','ORD04','PR01',7,139.93),('ORD_ITEM06','ORD04','PR02',2,59.98),('ORD_ITEM07','ORD05','PR02',2,59.98),('ORD_ITEM08','ORD06','PR01',3,59.97),('ORD_ITEM09','ORD06','PR02',4,119.96),('ORD_ITEM10','ORD06','PR04',3,59.97),('ORD_ITEM11','ORD07','PR01',1,19.99),('ORD_ITEM12','ORD07','PR02',1,29.99),('ORD_ITEM13','ORD08','PR01',1005,20089.95),('ORD_ITEM14','ORD08','PR02',2,59.98),('ORD_ITEM15','ORD09','PR01',2,39.98),('ORD_ITEM16','ORD09','PR02',1,29.99);
 /*!40000 ALTER TABLE `order_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,7 +207,6 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES ('ORD01','USR01',89.97,'2023-01-04 07:30:00','Pending'),('ORD02','USR02',59.98,'2023-01-05 08:45:00','Shipped'),('ORD03','USR03',29.99,'2023-01-06 09:55:00','Delivered'),('ORD04','USR02',359.87,'2023-11-20 18:28:31','Pending'),('ORD05','USR02',59.98,'2023-11-20 18:31:03','Pending'),('ORD06','USR02',239.90,'2023-11-21 03:09:15','Pending'),('ORD07','USR02',49.98,'2023-11-21 03:10:43','Pending'),('ORD08','USR02',20149.93,'2023-11-22 01:24:39','Pending'),('ORD09','USR01',69.97,'2023-12-15 09:49:53','Pending');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -248,7 +241,6 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES ('PR01','Product 1','Description for Product 1',19.99,100,'BR01','CA01','https://dictionary.cambridge.org/images/thumb/shirt_noun_002_33400.jpg?version=5.0.357','M'),('PR02','Product 2','Description for Product 2',29.99,75,'BR02','CA02','https://dictionary.cambridge.org/images/thumb/shirt_noun_002_33400.jpg?version=5.0.357','L'),('PR03','Product 3','Description for Product 3',39.99,50,'BR03','CA03','https://dictionary.cambridge.org/images/thumb/shirt_noun_002_33400.jpg?version=5.0.357','S'),('PR04','Product4','Des',19.99,0,'BR01','CA02','https://dictionary.cambridge.org/images/thumb/shirt_noun_002_33400.jpg?version=5.0.357','M'),('PR05','tr','r',111.00,111,'br03','ca02','a.png','x'),('PR06','tr','r',111.00,111,'br03','ca02','','x');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,8 +261,7 @@ CREATE TABLE `users` (
   `phone` varchar(15) DEFAULT NULL,
   `is_admin` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`)
+  UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -280,7 +271,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('USR01','user1','password1','user1@example.com','User One','Address One','123456789',1),('USR02','user2','password2','user2@example.com','User Two','Address Two','987654321',0),('USR03','user3','password3','user3@example.com','User Three','Address Three','555555555',0),('USR04','manh1','1',NULL,NULL,NULL,NULL,0),('USR05','manh','1',NULL,NULL,NULL,NULL,0);
+INSERT INTO `users` VALUES ('USR01','admin','$2a$10$FbzsharSr4fO.GveV4lo5ejcSJ7WMy1QYV73Q/dQwCaVqDzubNtz2','ducmanhhhboy@gmail.com','Tran Duc Manh','Dong Lo','+84386330978',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -293,4 +284,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-21 20:31:20
+-- Dump completed on 2024-01-01 23:04:15

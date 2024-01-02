@@ -327,6 +327,6 @@ public class CartDAO extends DAO {
 
     public static void main(String[] args) {
         CartDAO cartDB = new CartDAO();
-        cartDB.creatCartForNewUser("USR02");
+        cartDB.creatCartForNewUser("USR04");
     }
 }

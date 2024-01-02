@@ -108,7 +108,7 @@ public class DatHangServlet extends HttpServlet {
         String phone = request.getParameter("phone");
 
         HttpSession session = request.getSession();
-        //lau user_id
+        //lay user_id
         UserDAO udb = new UserDAO();
         User u = (User) session.getAttribute("account");
         String user_id = u.getUser_id();

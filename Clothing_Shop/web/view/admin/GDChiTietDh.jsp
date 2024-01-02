@@ -35,7 +35,7 @@
                 <td>
                     <img style="width:200px" src="${orderItem.getProduct().getImage_url()}" alt="alt"/>
                 </td>
-                <td>${orderItem.getProduct().getPrice()}</td>
+                <td>${orderItem.getTotal_price()/orderItem.getQuantity()}</td>
                 <td>${orderItem.getQuantity()}</td>
                 <td>${orderItem.getTotal_price()}</td>
             </tr>
