@@ -1,4 +1,5 @@
-##Clothing_Shop xây dựng trong 2 tháng,áp dụng OOP,MVC và các công nghệ sử dụng: Java JSTL, Servlet, mySQL, HTML, CSS,JS, BOOTSTAP 5.
+## Clothing_Shop xây dựng trong 2 tháng,áp dụng OOP,MVC và các công nghệ sử dụng: 
+## Java JSTL, Servlet, mySQL, HTML, CSS,JS, BOOTSTAP 5.
 1. Tạo một môi trường giúp nhà bán hàng quản lý:
   + Sản phẩm: Thêm, sửa, xóa sản phẩm; hình ảnh sản phẩm được upload từ local vào project.
   + Người dùng: Thêm, sửa, xóa thông tin người dùng; phân quyền lên admin.
@@ -17,7 +18,7 @@
   + Tìm kiếm, xem thông tin các sản phẩm.
   + Xem các đánh giá về sản phẩm
 
-###Một số hình ảnh về project:
+## Một số hình ảnh về project:
 + Giao diện chính gồm các sản phẩm:
 ![image](https://github.com/ducmanh02/Clothing_Shop/assets/89408872/452b3213-95d3-4a6f-ab83-9352ccd20b60)
 
