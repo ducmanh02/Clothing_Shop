@@ -9,33 +9,72 @@
 <link href="<c:url value="/asset/css/gdupdate.css" />" type="text/css" rel="stylesheet"><!-- comment -->
 <!DOCTYPE html>
 <html>
+
+
+
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="<c:url value="/asset/css/style.css" />" type="text/css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+              integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+              crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+        <link rel="icon" type="image/x-icon" href="./asset/favicon/icons8-shop-color-96.png">
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
         <title>JSP Page</title>
     </head>
     <body>
-        <c:set var="user" value="${requestScope.user}" />
-        <h1>Trang Cập nhật User</h1>
- 
-        <!-- Biểu mẫu cập nhật thông tin người dùng -->
-        <form action="qluser?action=update" method="post">
-            <input type="hidden" name="userId" value="${user.getUser_id()}">
-            <label>New Username: </label> <br>
-            <input type="text" name="newUsername" value="${user.getUsername()}" readonly><br>
-            <input type="hidden" name="newpassword" value="${user.getPassword()}" ><br>
+        <jsp:include page="../components/NavbarAdmin.jsp" ></jsp:include>
+            <div class="container ">
 
-            <label>New Email:</label><br>
-            <input type="text" name="newEmail" value="${user.getEmail()}"> <br>
-            <label>New Full Name: </label> <br>
-            <input type="text" name="newfullname" value="${user.getFull_name()}"><br>
-            <label>New Address: </label> <br>
-            <input type="text" name="newadress" value="${user.getAddress()}"><br>
-            <label>New Phone: </label> <br>
-            <input type="text" name="newphone" value="${user.getPhone()}"><br>
-            <label>New Admin: </label> <br>
-            <input type="text" name="newadmin" value="${user.getIs_admin()}"><br>
-            <input type="submit" value="Update">
-            <a href="qluser">Back</a>
-        </form>
+                <div class="container d-flex justify-content-center ">
+
+                    <form class="boxForm w-50 " action="qluser?action=update" method="post">
+                        <h1 class="text-center p-3">Update User</h1>
+                        <input type="hidden" name="userId" value="${user.getUser_id()}" >
+                    <input type="hidden" name="newpassword" value="${user.getPassword()}" >
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="username" name="newUsername" value="${user.getUsername()}" readonly>
+                        <label for="floatingInput">Username:</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingInput" placeholder="username" name="newEmail" value="${user.getEmail()}">
+                        <label for="floatingInput">Email:</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="username" name="newfullname" value="${user.getFull_name()}" >
+                        <label for="floatingInput">Full Name:</label>
+                    </div> 
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="username" name="newadress" value="${user.getAddress()}" >
+                        <label for="floatingInput">Address:</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="username" name="newphone" value="${user.getPhone()}" >
+                        <label for="floatingInput">Phone:</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="floatingInput"  name="newadmin" value="${user.getIs_admin()}" required min="0" max="1">
+                        <label for="floatingInput">Is Admin:</label>
+                    </div>
+                    <span style="color: red">${requestScope.error}</span>
+                    <div class="mt-3 text-center">
+                        <button class="normal ">Update</button>
+                    </div>
+
+
+
+                </form>
+
+
+
+            </div>
+
+        </div>
     </body>
+    
 </html>

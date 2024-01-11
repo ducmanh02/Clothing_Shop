@@ -90,7 +90,10 @@ public class DatHangServlet extends HttpServlet {
                         request.getRequestDispatcher("/view/khachhang/GDDatHang.jsp").forward(request, response);
 
                     }
-                    response.sendRedirect("chinhsp");
+                    else{
+                        response.sendRedirect("chinhsp");
+                    }
+                    
                 }
 
             } catch (NullPointerException e) {

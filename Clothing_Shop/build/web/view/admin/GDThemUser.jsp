@@ -10,37 +10,68 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="<c:url value="/asset/css/style.css" />" type="text/css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+              integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+              crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+        <link rel="icon" type="image/x-icon" href="./asset/favicon/icons8-shop-color-96.png">
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="../components/NavbarAdmin.jsp" ></jsp:include>
+            <div class="container ">
 
-        <h2>Đăng ký người dùng</h2>
-        <form action="qluser?action=add" method="post">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required ><br>
+            <div class="container d-flex justify-content-center ">
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password"  required><br>
+                <form class="boxForm w-50 " action="qluser?action=add" method="post">
+                    <h1 class="text-center p-3">Create User</h1>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="username" name="username" required>
+                        <label for="floatingInput">Username:</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingInput" placeholder="username" name="email">
+                        <label for="floatingInput">Email:</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="username" name="full_name" >
+                        <label for="floatingInput">Full Name:</label>
+                    </div> 
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="username" name="address" >
+                        <label for="floatingInput">Address:</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="username" name="phone" >
+                        <label for="floatingInput">Phone:</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="floatingInput" name="is_admin" value="0" required min="0" max="1">
+                        <label for="floatingInput">Is Admin:</label>
+                    </div>
+                    <span style="color: red">${requestScope.error}</span>
+                    <div class="mt-3 text-center">
+                        <button class="normal ">Create</button>
+                    </div>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" ><br>
 
-            <label for="full_name">Full Name:</label>
-            <input type="text" id="full_name" name="full_name" ><br>
 
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" ><br>
+                </form>
 
-            <label for="phone">Phone:</label>
-            <input type="text" id="phone" name="phone" ><br>
 
-            <label for="is_admin">Is Admin:</label>
-            <input type="number" id="is_admin" name="is_admin" value="0" required><br>
 
-            <input type="submit" value="Add User">
-            <p style="color: red">${error}</p>
-            <a href="qluser">Back</a>
-        </form>
+            </div>
+
+        </div>
     </body>
 </html>

@@ -137,7 +137,7 @@ public class QuanLySpServlet extends HttpServlet {
                 String size = request.getParameter("size");
 
                 // Thao tác file ảnh
-                String uploadPath = "C:\\Users\\ducma\\OneDrive\\Desktop\\Ki_7\\LapTrinhWeb\\Project\\Clothing_Shop\\web\\asset\\img_product";  // Đường dẫn đến thư mục lưu trữ ảnh
+                String uploadPath = "D:\\FE\\BTL\\Clothing_Shop\\Clothing_Shop\\web\\asset\\img_product";  // Đường dẫn đến thư mục lưu trữ ảnh
                 File uploadDir = new File(uploadPath);
                 if (!uploadDir.exists()) {
                     uploadDir.mkdir();
@@ -152,7 +152,7 @@ public class QuanLySpServlet extends HttpServlet {
 
                 // modify path ảnh lưu ( modify để có thể hiển thị)
                 String imgPath_raw = imagePath.toString();
-                String img_url = imgPath_raw.substring(75); // cắt đoạn ký tự đầu
+                String img_url = imgPath_raw.substring(42); // cắt đoạn ký tự đầu
                 System.out.println(img_url);
 
                 try {

@@ -15,24 +15,29 @@
     </head>
 
     <body>
-        <h1>Trang Quản Lý Brand</h1>
-        <h2>Danh sách Brand</h2>
-        <div class="container">
-        <a href="admin">Trang chủ</a>
-        <a href="qlbrand?action=add">Thêm Brand</a>
-        <table border="1px">
-                    <tr>
-                        <th>ID</th>
-                        <th>Brand Name</th>
-                        <th>Action</th>
-                    </tr>
+        <jsp:include page="../components/NavbarAdmin.jsp" ></jsp:include>
+
+            <div class="container text-center">
+                <h2>Danh sách Brand</h2>
+                <div class="d-flex justify-content-between">
+                    <button class="normal"><a style="text-decoration: none;color:#fff" href="admin">Trang chủ</a></button>
+                    <button class="normal"><a style="text-decoration: none;color:#fff" href="qlbrand?action=add">Thêm Brand</a></button>
+                </div>
+                <table class="table mt-5 align-middle">
+                    <thead class="table-dark ">
+                    <th>ID</th>
+                    <th>Brand Name</th>
+                    <th>Action</th>
+                    <th>Warning</th>
+                    </thead>
                 <c:forEach var="b" items="${requestScope.listBrand}" >
                     <tr>
                         <td>${b.brand_id}</td>
                         <td>${b.brand_name}</td>
-                        <td><a href="qlbrand?action=update&&brand_id=${b.brand_id}" >Update</a> &nbsp; &nbsp; &nbsp; 
-                            <a href="qlbrand?action=delete&&brand_id=${b.brand_id}" > Delete</a>
+                        <td><button class="normal"><a style="color:#fff;text-decoration: none;" href="qlbrand?action=update&&brand_id=${b.brand_id}" >Update</a></button> 
+
                         </td>
+                        <td><button class="btn-warning btn"><a style="color:#fff;text-decoration: none;" href="qlbrand?action=delete&&brand_id=${b.brand_id}" > Delete</a></button></td>
                     </tr>
                 </c:forEach>
             </table>

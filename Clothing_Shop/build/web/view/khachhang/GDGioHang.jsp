@@ -12,82 +12,96 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="<c:url value="/asset/css/style.css" />" type="text/css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-              integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-              crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" >
         <link rel="icon" type="image/x-icon" href="./asset/favicon/icons8-shop-color-96.png">
         <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
         <title>JSP Page</title>
     </head>
-    <style>
-        .container {
-            padding-top: 15vh;
 
-        }
-
-
-
-
-    </style>
 
     <body>
         <jsp:include page="../components/Header.jsp" ></jsp:include>
 
-            <div class="container">
-                <div class="head">
-                    <h1>Trang Giỏ Hàng</h1>
-                    <h4>${requestScope.error}</h3>
-                    <h3>Giỏ Hàng</h3>
-                </div>
-                
-                <div class="mid">
-                    <a href="admin">Trang chủ</a>
-                <table>
-                    <tr>
-                        <th>Cart Item id</th>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Total Price</th>
-                        <th>action</th>
-                        <th>Warning</th>
-                    </tr>
-                    <c:forEach var="b" items="${requestScope.listCartItem}"  >
+            <div class="padding-top">
 
-                        
+
+            </div>
+
+
+            <section id="shop_page_header">
+
+                <h2>#stayhome</h2>
+
+                <p>Save more with coupons & up to 70% off!</p>
+
+            </section>
+
+            <section id="cart" class="section-p1">
+                <table with="100%">
+                    <thead>
                         <tr>
-                            <td>${b.cart_item_id}</td>
-                            <td>${b.product.product_id}</td>
-                            <td>   
-                                <form action="giohang?action=update&&product_id=${b.product.product_id}" method="post">
-                                    <input type="number" width="20px" value="${b.quantity}" max="${b.product.stock_quantity}" name="quantity"/>
-                                    <input type="submit" value="update"/>
+                            <td>Remove</td>
+                            <td>Image</td>
+                            <td>Product</td>
+                            <td>Price</td>
+                            <td>Quantity</td>
+                            <td>Subtotal</td>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                                </form></td>
-                            <td>${b.total_price}</td>
+                    <c:forEach var="b" items="${requestScope.listCartItem}"  >
+                        <tr>
                             <td>
-
                                 <form action="giohang?action=delete&&product_id=${b.product.product_id}" method="post">
-                                    <input type="submit" value="delete"/>
+                                    <button class="btn btn-warning">Delete</button>
 
-                                </form></td>
-
-                            <td>                               
+                                </form>
                             </td>
+                            <td><img src="${b.product.image_url}" alt=""></td>
+                            <td>${b.product.product_name}</td>
+                            <td>$${b.total_price/b.quantity}</td>
+                            <td>                                
+                                <form action="giohang?action=update&&product_id=${b.product.product_id}" method="post">
+                                    <input type="number" width="20px" value="${b.quantity}" min="1" max="${b.product.stock_quantity}" name="quantity"/>
+                                    <button class=" normal">Update</button>
+
+                                </form>
+                            </td>
+                            <td>$${b.total_price}</td>
                         </tr>
                     </c:forEach>
 
-                </table>
-                                        
-                </div>
-                    <div class="last">
-                        <h4 style="margin: 20px 0">Tổng tiền : ${requestScope.totalPrice}</h4>
-                        <a href="dathang?action=order">Đặt Hàng</a>
-                    </div>
-                
-                
-        </div>
-                    
+                </tbody>
+            </table>
+        </section>
 
-    </body>
-    
+        <section id="cart-add" class="section-p1">
+
+            <div class="subtotal">
+                <h3><strong>Cart Totals</strong></h3>
+                <table>
+                    <tr>
+                        <td>Cart Subtotal</td>
+                        <td>$${requestScope.totalPrice}</td>
+                    </tr>
+                    <tr>
+                        <td>Shipping</td>
+                        <td>Free</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>$${requestScope.totalPrice}</strong></td>
+                    </tr>
+                </table>
+                <button class="normal"><a style="color: #fff;text-decoration: none" href="dathang?action=order">Check Out</a></button>
+            </div>
+        </section>
+
+    </div>
+
+    <jsp:include page="../components/Footer.jsp"/>
+</body>
+
 </html>

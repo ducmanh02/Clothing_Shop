@@ -10,43 +10,53 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="<c:url value="/asset/css/style.css" />" type="text/css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+              integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+              crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+        <link rel="icon" type="image/x-icon" href="./asset/favicon/icons8-shop-color-96.png">
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     </head>
     <body>
-        <h1>Trang Quản Lý FeedBack</h1>
-        <h2>Danh Sách FeedBack</h2>
-        <div class="container">
-        <a href="admin">Trang Chủ</a>
-        <table border="1px">
-            <tr>
-                <th>ID</th>
-                <th>UserName</th>
-                <th>Product Id</th>
-                <th>Product Name</th>
-                <th>Product Image</th>
-                <th>Rating</th>
-                <th>Comment</th>
-                <th>Create at</th>
+        <jsp:include page="../components/NavbarAdmin.jsp" ></jsp:include>
 
-            </tr>
-            <c:forEach var="b" items="${requestScope.listfb}" >
-                <tr>
-                    <td>${b.feedback_id}</td>
-                    <td>${b.getUser().getUsername()}</td>
-                    <td>${b.getProduct().getProduct_id()}</td>
-                    <td>
-                        ${b.getProduct().getProduct_name()}
-                    </td>
-                    <td><img style="width: 200px" src="${b.getProduct().getImage_url()}" alt="alt"/></td>
-                    <td>${b.rating}</td>
-                    <td>${b.comment}</td>
-                    <td>${b.created_at}</td>
+        <div class="container pt-5">
+            <h2 class="text-center p-4">Danh Sách FeedBack</h2>
+            <button class="normal"><a style="text-decoration: none;color: #fff"  href="admin">Trang chủ</a></button>
+            <table class="table mt-5 mb-5 align-middle">
+                <thead class="table-dark align-middle">
+                    <th>ID</th>
+                    <th>UserName</th>
+                    <th>Product Id</th>
+                    <th>Product Name</th>
+                    <th>Product Image</th>
+                    <th>Rating</th>
+                    <th>Comment</th>
+                    <th>Create at</th>
 
-                </tr>
-                
-            </c:forEach>
-        </table>
+                </thead>
+                <c:forEach var="b" items="${requestScope.listfb}" >
+                    <tr>
+                        <td>${b.feedback_id}</td>
+                        <td>${b.getUser().getUsername()}</td>
+                        <td>${b.getProduct().getProduct_id()}</td>
+                        <td>
+                            ${b.getProduct().getProduct_name()}
+                        </td>
+                        <td><img style="width: 150px" src="${b.getProduct().getImage_url()}" alt="alt"/></td>
+                        <td>${b.rating}</td>
+                        <td>${b.comment}</td>
+                        <td>${b.created_at}</td>
+
+                    </tr>
+
+                </c:forEach>
+            </table>
         </div>
     </body>
 </html>

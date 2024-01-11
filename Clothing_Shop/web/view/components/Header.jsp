@@ -16,49 +16,8 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" type="image/x-icon" href="./asset/favicon/icons8-shop-color-96.png">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <title>JSP Page</title>
-    <style>
-        
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            padding:20px;
-            margin-right: 20px;
-        }
-        .dropdown button {
-            background-color: white; 
-            color: black;
-            border: none; 
-            cursor: pointer;
-            font-size: 30px; 
-            height:15px;
-        }
+    <title>Clothing Shop</title>
 
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-    </style>
 </head>
 
 <body>
@@ -68,9 +27,7 @@
         </div>
         <div class="menu">
             <div class="item"><a href="/Clothing_Shop/home">Home</a></div>
-            <div class="item"><a href="#">Men's</a></div>
-            <div class="item"><a href="#">Woman's</a></div>
-            <div class="item"><a href="#">Category</a></div>
+
             <div class="item"><a href="chinhsp">Product</a></div>
         </div>
         <div class="button">
@@ -85,23 +42,23 @@
                     <div class="dropdown">
                         <button class="dropbtn">Hello, ${sessionScope.account.username} <i class="fa-solid fa-chevron-down"></i></button>
                         <div class="dropdown-content">
-                            <a href="dathang?action=showAll">Xem đơn hàng</a>
-                            <a href="user?action=update&user_name=${sessionScope.account.username}">Cập nhật thông tin cá nhân</a>
+                            <a href="dathang?action=showAll">View Orders</a>
+                            <a href="user?action=update&user_name=${sessionScope.account.username}">Update Info</a>
                         </div>
                     </div>
                         
                     <div class="item">
                         <div class="logout">
-                            <a href="user?action=logout">Log Out</a>
+                            <a href="user?action=logout">LOG OUT</a>
                         </div>
                     </div>
                 </c:if>
                 <c:if test="${sessionScope.account eq null}">
                     <div class="item">
-                        <a href="user?action=login">Log In</a>
+                        <a href="user?action=login">LOG IN</a>
                     </div>
                     <div class="item">
-                        <a href="user?action=signup">Sign Up</a>
+                        <a href="user?action=signup">SIGN UP</a>
                     </div>
                 </c:if>
             </div>

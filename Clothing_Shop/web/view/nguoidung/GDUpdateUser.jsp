@@ -10,32 +10,82 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="<c:url value="/asset/css/style.css" />" type="text/css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+              integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+              crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+        <link rel="icon" type="image/x-icon" href="./asset/favicon/icons8-shop-color-96.png">
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     </head>
+    <style>
+        .container{
+            padding-top: 15vh;
+        }
+    </style>
+
     <body>
-        <h1>Giao Diện thông tin người dùng</h1>
+        <jsp:include page="../components/Header.jsp" ></jsp:include>
 
         <c:set var="user" value="${requestScope.user}" />
-       
-        <!-- Biểu mẫu cập nhật thông tin người dùng -->
-        <form action="user?action=update" method="post">
-            <input type="hidden" name="userId" value="${user.getUser_id()}">
-            <label>Username: </label> 
-            <input style="border: none" type="text" name="newUsername" value="${user.getUsername()}"><br>
-            <label>New Password: </label> <br>
-            <input type="password" name="newpassword" value="${user.getPassword()}"><br>
 
-            <label>New Email:</label><br>
-            <input type="text" name="newEmail" value="${user.getEmail()}"> <br>
-            <label>New Full Name: </label> <br>
-            <input type="text" name="newfullname" value="${user.getFull_name()}"><br>
-            <label>New Address: </label> <br>
-            <input type="text" name="newadress" value="${user.getAddress()}"><br>
-            <label>New Phone: </label> <br>
-            <input type="text" name="newphone" value="${user.getPhone()}"><br>
-            <input type="submit" value="Update">
-            <a href="chinhsp">Back</a>
-        </form>
+ 
+
+
+
+        <div class="container d-flex justify-content-center ">
+
+            <form class="boxForm w-50 " action="user?action=update" method="post">
+
+                <h2 class="text-center p-3">Update Account Information</h2>
+
+                <input type="hidden" name="userId" value="${user.getUser_id()}">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Username:</label>
+                    <p>${user.getUsername()}</p>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="newUsername" value="${user.getUsername()}" hidden>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">New Password:</label>
+                    <input type="password" class="form-control" id="exampleFormControlInput1" name="newpassword" value="${user.getPassword()}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">New Full Name: </label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="newfullname" value="${user.getFull_name()}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">New Email:</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" name="newEmail" value="${user.getEmail()}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">New Address:</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="newadress" value="${user.getAddress()}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">New Phone:</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="newphone" value="${user.getPhone()}">
+                </div>
+                <span style="color: red">${requestScope.error}</span>
+                <div class="mt-3 text-center">
+                    <button class="normal ">Update</button>
+                    <button class=" btn btn-secondary normal "><a class="text-decoration-none" style="color: #FFF" href="chinhsp">Back</a></button>
+                    
+                </div>
+
+
+
+            </form>
+
+
+
+        </div>
+        <jsp:include page="../components/Footer.jsp"/>     
     </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
 </html>
