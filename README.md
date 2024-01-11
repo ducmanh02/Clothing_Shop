@@ -36,7 +36,7 @@
 + Giao diện danh sách đơn hàng:
 ![image](https://github.com/ducmanh02/Clothing_Shop/assets/89408872/225b0938-442c-4756-863d-fa7e44c2699b)
 
-+Giao diện quản lý sản phẩm phía admin:
++ Giao diện quản lý sản phẩm phía admin:
 ![image](https://github.com/ducmanh02/Clothing_Shop/assets/89408872/47feb580-d947-4352-9e19-1989f2fafab6)
 
 
